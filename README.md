@@ -6,7 +6,7 @@ Why is this open source? Because why not.
 
 # License
 
-Software is licensed under AGPL v3. See [LICENSE]() for more info.
+Software is licensed under AGPL v3. See [LICENSE](LICENSE) for more info.
 
 # Contact
 
