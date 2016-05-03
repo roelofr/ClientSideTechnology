@@ -1,0 +1,131 @@
+/*
+App: client.roelof.io
+Author: Roelof Roos
+(c) Roelof Roos 2015. This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+*/
+/*
+    Created on : 29-Jan-2015, 14:48:25
+    Author     : Roelof Roos <roelof.roos@outlook.com>
+
+    Colour palette: http://www.materialpalette.com/cyan/deep-orange
+*/
+
+body {
+    color: #212121;
+    background-color: #f0f0f0;
+
+
+    background-image: url(../img/bg.jpg);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-attachment: fixed;
+
+    background-size: 900px 600px;
+}
+
+header, nav,
+main.generic section,
+main.home article{
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    1px 1px 3px 0px rgba(50, 50, 50, 0.25);
+    box-shadow:         1px 1px 3px 0px rgba(50, 50, 50, 0.25);
+}
+
+header {
+    background-color: #0097a7;
+
+    background-image: url(../img/logo-header.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 310px 200px;
+
+    color: #fff;
+}
+header h1{
+    color: #fff;
+}
+
+nav {
+    background-color: #00bcd4;
+}
+nav li > a,
+nav li > a:hover,
+nav li > a:active,
+nav li > a:link {
+    color: #fff;
+}
+nav li > a {
+    background-color: #00bcd4;
+}
+nav li > a:hover,
+nav li.active > a {
+    background-color: #7ddde9;
+}
+
+main.generic section {
+    background-color: #fafafa;
+}
+main article {
+    background: #ffffff;
+}
+
+footer,
+footer a,
+footer a:link,
+footer a:active,
+footer a:hover,
+footer a:visited {
+    color: #999;
+}
+
+h1.title {
+    border-bottom-color: #ddd;
+}
+
+main.contact img.user-photo {
+    border-color: #DDD;
+}
+
+main.contact .see-through {
+    background-color: transparent;
+
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+/**
+    Cleafix, via http://nicolasgallagher.com/micro-clearfix-hack/
+*/
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: " ";
+}
+.clearfix:after {
+    clear: both;
+}
+
+/**
+    Definition lists
+*/
+
+dt {
+    color: #00bcd4;
+}
+dd {
+    color: #212121;
+}
+
+hr {
+
+    border: 0;
+    border-top: 1px solid #eaeaea;
+
+    margin: 20px 0;
+}
+
+article.accent-1,
+section.accent-1 {
+    background-color: #b2ebf2;
+}

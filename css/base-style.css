@@ -1,0 +1,365 @@
+/*
+App: client.roelof.io
+Author: Roelof Roos
+(c) Roelof Roos 2015. This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+*/
+/*
+    Created on : 29-Jan-2015, 14:27:20
+    Author     : Roelof Roos <roelof.roos@outlook.com>
+*/
+/* Change the sizing rules so it's easier to set certain sizes */
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background: #f0f0f0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  font-style: normal;
+  color: #222;
+}
+/** Base element styling */
+
+h1,
+h2,
+h3 {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  color: #000;
+  margin: 1em 0 .3em 0;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 19px;
+}
+
+h1.title {
+  border-bottom: 1px solid #000;
+}
+
+p {
+  margin-bottom: 0.6em;
+}
+/** Start page components */
+
+header {
+  margin: 5px 0px 0px 0px;
+  padding: 15px 45px;
+}
+
+header > h1 {
+  font-size: 40px;
+}
+
+nav {
+  padding: 0px 1em;
+}
+
+nav > ul {
+  list-style: none;
+  display: block;
+}
+
+nav > ul > li {
+  display: inline-block;
+}
+
+nav > ul > li > a {
+  padding: 10px 1em;
+  height: 40px;
+  line-height: 20px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+nav li > a:hover {
+  text-decoration: none;
+}
+
+main {
+  margin-bottom: 10px;
+  padding-top: 15px;
+}
+
+footer {
+  padding: 1em 15px;
+}
+
+footer a,
+footer a:link,
+footer a:active,
+footer a:hover,
+footer a:visited {
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+@medi a (max-width: 767px) {
+  header, nav, main, footer {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  header,
+  nav,
+  main,
+  footer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 750px;
+  }
+  header {
+    margin-top: 15px;
+  }
+}
+
+@media (min-width: 992px) {
+  header,
+  nav,
+  main,
+  footer {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  header,
+  nav,
+  main,
+  footer {
+    width: 1170px;
+  }
+}
+/** Homepage */
+
+main.home section {
+  float: left;
+  min-height: 1px;
+  padding: 10px 15px;
+  position: relative;
+}
+
+main h1:first-child,
+main h2:first-child,
+main h3:first-child {
+  margin-top: 10px;
+}
+
+main.home > h1 {
+  padding-left: 10px;
+}
+
+main > h1,
+main > h2,
+main > h3 {
+  margin-top: 0px;
+}
+
+main.home article {
+  margin: 0 0 15px;
+  padding: 5px 10px;
+}
+
+main.home article > h1 + .meta,
+main.home article > h2 + .meta,
+main.home article > h3 + .meta {
+  margin-top: -5px;
+  margin-bottom: 5px;
+  padding-left: 10px;
+  color: #676767;
+}
+
+main.home article >.meta a,
+main.home article > .meta a:active,
+main.home article > .meta a:visited,
+main.home article > .meta a:link {
+  color: #676767;
+  text-decoration: underline;
+}
+
+main.home article > .meta a:hover {
+  text-decoration: none;
+}
+
+@media (min-width: 992px) {
+  main.home section {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  main.home section {
+    width: 33.33333333%;
+  }
+}
+/** Generic homepage */
+
+main.generic article {
+  float: left;
+  min-height: 1px;
+  padding: 10px 15px;
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  main.generic article {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  main.generic article {
+    width: 33.33333333%;
+  }
+}
+
+main.contact img.user-photo {
+  border: 1px solid transparent;
+  width: 100%;
+  max-width: 200px;
+  min-width: 100px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  padding: 4px;
+  margin: 0px auto;
+}
+
+main.contact img.user-photo + h2 {
+  margin-top: 5px;
+  text-align: center;
+}
+/**
+    Some aligners (stolen from Bootstrap, see getbootstrap.com)
+*/
+
+.pull-right {
+  float: right !important;
+}
+
+.pull-left {
+  float: left !important;
+}
+
+.text-center {
+  text-align: center;
+}
+/**
+    Clearfix
+*/
+
+main:before,
+main:after {
+  display: table;
+  content: " ";
+}
+
+main:after {
+  clear: both;
+}
+/** Width dependant hides */
+
+@media(max-width: 767px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+  .visible-desktop,
+  .visible-tablet {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-tablet {
+    display: none !important;
+  }
+  .visible-desktop,
+  .visible-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .visible-mobile,
+  .visible-tablet {
+    display: none !important;
+  }
+  .hidden-desktop {
+    display: none !important;
+  }
+}
+/**
+    Definition lists
+*/
+
+dl {
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+dt,
+dd {
+  line-height: 1.5;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-left: 0;
+  margin-bottom: 0.4em;
+}
+/**
+    Overrides for FontAwesome
+*/
+
+.fa-stack-05x {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.5em;
+  line-height: inherit;
+}
+/**
+  Chatbox page
+*/
+/** Width dependant hides */
+
+@media(max-width: 767px) {
+  main.chatbox .chatbox-online, main.chatbox .chatbox-rooms {
+    display: none;
+  }
+  main.chatbox .chatbox-main {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  main.chatbox .chatbox-rooms {
+    display: none;
+  }
+  main.chatbox .chatbox-main {
+    width: 60%;
+  }
+}
