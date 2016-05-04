@@ -1,6 +1,6 @@
 {
   "name": "client-tech.roelof.io",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Some work I had to do for my Windesheim Software Engineering 2 minor",
   "main": "index.php",
   "scripts": {
