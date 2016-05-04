@@ -5,3 +5,9 @@ node_js:
     - 0.8
     - 0.9
 
+// Tell Travis to use Grunt
+before_script:
+    - npm install -g grunt-cli
+
+script: grunt travis --verbose
+
