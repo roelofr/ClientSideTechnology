@@ -6,7 +6,6 @@
     "curly": true,
     "eqeqeq": true,
     "strict": true,
-    "evil": false,
 
     "shadow": "inner",
     "indent": 4,
@@ -19,13 +18,5 @@
     "forin": true,
     "notypeof": true,
     "freeze": true,
-    "futurehostile": true,
-    "globals": {
-        "wrap": true,
-        "unwrap": true,
-        "Polymer": true,
-        "Platform": true,
-        "page": true,
-        "app": true
-    }
+    "futurehostile": true
 }
