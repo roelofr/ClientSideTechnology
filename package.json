@@ -1,0 +1,21 @@
+{
+  "name": "client-tech.roelof.io",
+  "version": "1.0.0",
+  "description": "Some work I had to do for my Windesheim Software Engineering 2 minor",
+  "main": "index.php",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roelofr/ClientSideTechnology.git"
+  },
+  "author": "Roelof Roos <github@roelof.io>",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jscs": "^2.8.0"
+  }
+}
