@@ -26,7 +26,9 @@
     padding-left: 15px;
 
     position: relative;
-    min-height: 1px; // Make sure they're always consuming the allocated space
+
+    /* Make sure they're always consuming the allocated space */
+    min-height: 1px;
 }
 
 @media (min-width: 992px) {

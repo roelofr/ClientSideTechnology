@@ -14,7 +14,7 @@
 }
 
 .forum-threads li {
-    padding: 0px;
+    padding: 0;
     margin-bottom: 1px;
     color: #212121;
     display: block;
@@ -40,8 +40,8 @@
 
 .forum-thread-name,
 .forum-thread-desc {
-    padding-bottom: 0px;
-    padding-top: 0px;
+    padding-bottom: 0;
+    padding-top: 0;
 }
 
 .forum-thread-name {
@@ -63,6 +63,7 @@
     background-color: #f0f0f0;
 }
 
+/* csslint ignore:box-model */
 .forum-post-side {
     order: 0;
     flex-grow: 0;
@@ -78,21 +79,21 @@
 
 .forum-post-side figure {
     width: 128px;
-    margin: 0px auto;
-    padding: 1px;
+    margin: 0 auto;
     border: 1px solid #c0c0c0;
 
 }
 
 .forum-post-side img {
+    margin: 1px;
     width: 126px;
 }
 
 .forum-post-side p {
     display: block;
     padding-top: 0.5em;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+    padding-bottom: 0;
+    margin-bottom: 0;
     text-align: center;
 }
 

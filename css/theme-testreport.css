@@ -23,7 +23,7 @@
     background-color: #6a6a6a;
 }
 .test-report nav li > a:hover,
-.test-report nav li.active > a {
+.test-report nav .active > a {
     background-color: #b3b3b3;
 }
 /**
@@ -34,8 +34,7 @@
     color: #6a6a6a;
 }
 
-.test-report article.accent-1,
-.test-report section.accent-1 {
+.test-report .accent-1 {
     background-color: #d2d2d2;
 }
 
@@ -44,7 +43,7 @@
     margin-right: -15px;
 }
 .test-report article {
-    maring-right: 15px;
+    margin-right: 15px;
     margin-left: 15px;
 
 }
@@ -58,7 +57,7 @@
 .test-report table th, .test-report table td {
     background-color: #fff;
     border: 1px solid #ddd;
-    border-width: 1px 0px;
+    border-width: 1px 0;
 
     padding: 7px;
     line-height: 1.5;
@@ -81,7 +80,7 @@
   background-repeat: no-repeat;
 
   display: block;
-  margin: 0px auto;
+  margin: 0 auto;
 }
 
 .test-report table .browser-ie {

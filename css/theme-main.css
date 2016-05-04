@@ -25,11 +25,11 @@ body {
 }
 
 header, nav,
-main.generic section,
-main.home article{
-    -webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.25);
-    -moz-box-shadow:    1px 1px 3px 0px rgba(50, 50, 50, 0.25);
-    box-shadow:         1px 1px 3px 0px rgba(50, 50, 50, 0.25);
+.generic section,
+.home article{
+    -webkit-box-shadow: 1px 1px 3px 0 rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    1px 1px 3px 0 rgba(50, 50, 50, 0.25);
+    box-shadow:         1px 1px 3px 0 rgba(50, 50, 50, 0.25);
 }
 
 header {
@@ -42,7 +42,7 @@ header {
 
     color: #fff;
 }
-header h1{
+header .site-title {
     color: #fff;
 }
 
@@ -59,11 +59,11 @@ nav li > a {
     background-color: #00bcd4;
 }
 nav li > a:hover,
-nav li.active > a {
+nav .active > a {
     background-color: #7ddde9;
 }
 
-main.generic section {
+.generic section {
     background-color: #fafafa;
 }
 main article {
@@ -79,20 +79,20 @@ footer a:visited {
     color: #999;
 }
 
-h1.title {
+.title {
     border-bottom-color: #ddd;
 }
 
-main.contact img.user-photo {
+.contact .user-photo {
     border-color: #DDD;
 }
 
-main.contact .see-through {
+.contact .see-through {
     background-color: transparent;
 
-    box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 /**
@@ -126,8 +126,7 @@ hr {
     margin: 20px 0;
 }
 
-article.accent-1,
-section.accent-1 {
+.accent-1 {
     background-color: #b2ebf2;
 }
 
