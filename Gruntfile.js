@@ -15,12 +15,17 @@ module.exports = function(grunt) {
         ],
         css: [
             './css/*.css'
+        ],
+        html: [
+            './*.htm',
+            './*.html'
         ]
     };
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        // CSS linter
         csslint: {
             options: {
                 csslintrc: './.csslintrc'
@@ -38,13 +43,27 @@ module.exports = function(grunt) {
             }
         },
 
-        // JS Linter
+        // JS Code Standards validator
         jscs: {
             files: files.js,
             options: {
                 config: './.jscsrc',
                 esnext: true
             }
+        },
+
+        // HTML W3C validator
+        validation: {
+            options: {
+                reset: grunt.option('reset') || false,
+                stoponerror: false,
+                relaxerror: [
+                    'Bad value X-UA-Compatible for attribute http-equiv on ' +
+                    'element meta.'
+                ],
+                generateReport: false,
+            },
+            files: files.html
         },
 
         // Watch config
@@ -71,6 +90,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-jscs');
 
+    // Load HTML and CSS validators
+    grunt.loadNpmTasks('grunt-w3c-html-validation');
+
     // Watch
     grunt.loadNpmTasks('grunt-contrib-watch');
 
@@ -91,12 +113,21 @@ module.exports = function(grunt) {
         ]
     );
 
+    // Verifies HTML is valid
+    grunt.registerTask(
+        'test-html',
+        'Tests if HTML is W3C HTML5 spec-compliant', [
+            'validation'
+        ]
+    );
+
     // Verifies all assets
     grunt.registerTask(
         'test',
         'Tests Javascript for operation and code standards', [
-            'test-js',
-            'test-css'
+            'test-html',
+            'test-css',
+            'test-js'
         ]
     );
 

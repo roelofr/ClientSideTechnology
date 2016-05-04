@@ -17,6 +17,7 @@
     "grunt-contrib-csslint": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-jscs": "^2.8.0"
+    "grunt-jscs": "^2.8.0",
+    "grunt-w3c-html-validation": "^0.1.8"
   }
 }
