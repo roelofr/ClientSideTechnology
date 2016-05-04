@@ -104,4 +104,10 @@ module.exports = function(grunt) {
         'default',
         'test'
     );
+
+    // Task for Travis
+    grunt.registerTask(
+        'travis',
+        'test'
+    );
 };
