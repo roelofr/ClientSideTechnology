@@ -1,4 +1,4 @@
-# Client Side Technology
+# Client Side Technology [![](https://travis-ci.org/roelofr/ClientSideTechnology.svg?branch=master)](https://travis-ci.org/roelofr/ClientSideTechnology)
 
 Some work I had to do for my Software Engineering II major on Windesheim.
 
