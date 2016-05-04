@@ -1,80 +1,83 @@
-/*
- * App: client.roelof.io
- * Author: Roelof Roos
- * (c) Roelof Roos 2015. This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+/**
+ * Part of Client Side Technology
+ *
+ * @author Roelof Roos <github@roelof.io>
+ * @license AGPL-3
  */
 
 // Utilites for ajax requests and DOM targetting
 
-var util = util || {};
+(function(w) {
+    'use strict';
 
-/**
- * Ajax requests librarie
- * @type Function
- */
-util.ajax = (function () {
+    w.util = w.util || {};
+    var util = w.util;
 
-    var createAjax = function () {
-        if ("XMLHttpRequest" in window)
-            return new XMLHttpRequest();
-        else if ("InternetExplorer" in window)
-            return new InternetExplorer();
-        else
-            return false;
-    };
+    /**
+     * Ajax requests libraries
+     *
+     * @type Function
+     */
+    util.ajax = (function() {
 
-    var basicRequest = function (url, method, postdata, callback) {
-        var req = createAjax();
-        if (!req)
-            return false;
+        var decypher = function(data) {
+            if (!data || data === '' || data === null) {
+                return null;
+            }
 
-        req.open(url, method);
-        req.setRequestHeader("X-RequestType", "AJAX");
+            var newData = String(data);
 
-        req.onreadystatechange = function (event) {
-            if (req.state === 4)
-                callback(decypher(event.data));
+            try {
+                var dataOut = JSON.parse(newData);
+                return dataOut;
+            } catch (e) {
+                // It's not JSON
+            }
+
+            return newData;
         };
 
-        if (method === "POST")
-            req.send(postdata);
+        var basicRequest = function(url, method, postdata, callback) {
+            var req = new XMLHttpRequest();
+            if (!req) {
+                return false;
+            }
 
-        return true;
-    };
+            req.open(url, method);
+            req.setRequestHeader('X-RequestType', 'AJAX');
 
-    var decypher = function (data) {
-        if (!data || data === "" || data === null)
-            return null;
+            req.onreadystatechange = function(event) {
+                if (req.state === 4) {
+                    callback(decypher(event.data));
+                }
+            };
 
-        var newData = String(data);
+            if (method === 'POST') {
+                req.send(postdata);
+            }
 
-        try {
-            var dataOut = JSON.parse(newData);
-            return dataOut;
-        } catch (e) {
-            // It's not JSON
-        }
-
-        return newData;
-
-    }
-
-    var getRequest = function (url, callback) {
-        if (basicRequest(url, "GET", null, callback))
             return true;
-        return false;
-    }
+        };
 
-    var postRequest = function (url, data, callback) {
-        if (basicRequest(url, "POST", data, callback))
-            return true;
-        return false;
-    }
+        var getRequest = function(url, callback) {
+            if (basicRequest(url, 'GET', null, callback)) {
+                return true;
+            }
+            return false;
+        };
 
-    return {
-        get: getRequest,
-        post: postRequest
-    }
-})();
+        var postRequest = function(url, data, callback) {
+            if (basicRequest(url, 'POST', data, callback)) {
+                return true;
+            }
+            return false;
+        };
 
-// Dom targetting has been moved to util.dom.js
+        return {
+            get: getRequest,
+            post: postRequest
+        };
+    })();
+
+    // Dom targetting has been moved to util.dom.js
+}(window));

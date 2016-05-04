@@ -112,7 +112,7 @@ footer a:hover {
   text-decoration: underline;
 }
 
-@medi a (max-width: 767px) {
+@media (max-width: 767px) {
   header, nav, main, footer {
     width: 100%;
   }
@@ -218,6 +218,8 @@ main.generic article {
   min-height: 1px;
   padding: 10px 15px;
   position: relative;
+
+  margin-bottom: 1px;
 }
 
 @media (min-width: 992px) {
@@ -230,6 +232,10 @@ main.generic article {
   main.generic article {
     width: 33.33333333%;
   }
+}
+
+main.generic article.full-width {
+    width: 100%;
 }
 
 main.contact img.user-photo {
@@ -362,4 +368,16 @@ dd {
   main.chatbox .chatbox-main {
     width: 60%;
   }
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.6em 0.9em;
+    text-decoration: none;
+    color: #222;
+    background: #eee;
+
+    border: 0px solid;
+
+    border-radius: 1px;
 }

@@ -1,14 +1,20 @@
-(function () {
+/**
+ * Part of Client Side Technology
+ *
+ * @author Roelof Roos <github@roelof.io>
+ * @license AGPL-3
+ */
+(function(w, d) {
     'use strict';
 
-    Date.prototype.format = function (fmt) {
+    Date.prototype.format = function(fmt) { //jshint ignore:line
         function pad(n, minLength) {
             var str = String(n);
             if (str.length >= minLength) {
                 return str;
             }
 
-            str = "0".repeat(minLength - str.length) + str;
+            str = '0'.repeat(minLength - str.length) + str;
             return str;
         }
         fmt = fmt.replace('%ms', this.getMilliseconds());
@@ -21,21 +27,18 @@
         return fmt;
     };
 
-    String.prototype.template = function (args) {
-        var str = this,
-            k;
-        for (k in args) {
-            if (args.hasOwnProperty(k)) {
-                str = str.replace(
-                    new RegExp('\\{\\{ ' + k + ' \\}\\}', 'g'),
-                    args[k]
-                );
-            }
-        }
+    String.prototype.template = function(args) { //jshint ignore:line
+        var str = this;
+        args.forEach(function(val, key) {
+            str = str.replace(
+                new RegExp('\\{\\{\s*' + key + '\s*\\}\\}', 'g'),
+                val
+            );
+        });
         return str;
     };
 
-    Array.prototype.remove = function (what) {
+    Array.prototype.remove = function(what) { //jshint ignore:line
         var i;
         if (this.indexOf(what) === -1) {
             return this;
@@ -49,59 +52,57 @@
         return this;
     };
 
-    Node.prototype.remove = Node.prototype.remove || function () {
-        this.parentNode.removeChild(this);
-    };
+    if (!Node.prototype.remove) {
+        Node.prototype.remove = function() {
+            this.parentNode.removeChild(this);
+        };
+    }
 
-    Node.prototype.removeAll = function () {
+    Node.prototype.removeAll = function() {
         while (this.hasChildNodes()) {
             this.removeChild(this.lastChild);
         }
     };
 
-    HTMLCollection.prototype.toArray = function () {
+    HTMLCollection.prototype.toArray = function() {
         return Array.prototype.slice.call(this);
     };
 
-    Object.prototype.merge = function (obj1, obj2) {
-        var k, out;
+    Object.prototype.merge = function(obj1, obj2) { //jshint ignore:line
         if (obj2 === undefined) {
-            for (k in obj1) {
-                if (obj1.hasOwnProperty(k)) {
-                    this[k] = obj1[k];
-                }
-
-            }
+            obj1.forEach(function(val, key) {
+                this[key] = val;
+            });
             return this;
         }
-        out = {};
+
+        var out = {};
         out.merge(obj1);
         out.merge(obj2);
         return out;
-
     };
 
-    if (!window.indexedDB && window.mozIndexedDB) {
-        window.indexedDB = window.mozIndexedDB;
-    } else if (!window.indexedDB && window.webkitIndexedDB) {
-        window.indexedDB = window.webkitIndexedDB;
-    } else if (!window.indexedDB && window.msIndexedDB) {
-        window.indexedDB = window.msIndexedDB;
+    if (!w.indexedDB && w.mozIndexedDB) {
+        w.indexedDB = w.mozIndexedDB;
+    } else if (!w.indexedDB && w.webkitIndexedDB) {
+        w.indexedDB = w.webkitIndexedDB;
+    } else if (!w.indexedDB && w.msIndexedDB) {
+        w.indexedDB = w.msIndexedDB;
     }
 
-    if (!window.IDBTransaction && window.webkitIDBTransaction) {
-        window.IDBTransaction = window.webkitIDBTransaction;
-        window.IDBKeyRange = window.webkitIDBKeyRange;
-    } else if (!window.IDBTransaction && window.msIDBTransaction) {
-        window.IDBTransaction = window.msIDBTransaction;
-        window.IDBKeyRange = window.msIDBKeyRange;
+    if (!w.IDBTransaction && w.webkitIDBTransaction) {
+        w.IDBTransaction = w.webkitIDBTransaction;
+        w.IDBKeyRange = w.webkitIDBKeyRange;
+    } else if (!w.IDBTransaction && w.msIDBTransaction) {
+        w.IDBTransaction = w.msIDBTransaction;
+        w.IDBKeyRange = w.msIDBKeyRange;
     }
 
-    if (!window.jQuery) {
+    if (!w.jQuery) {
         // Who /needs/ jQuery anyway?
-        window.$ = function () {
-            return window.document.querySelector.apply(window.document, arguments);
+        w.$ = function() {
+            return d.querySelector.apply(d, arguments);
         };
     }
 
-}());
+}(window, document));

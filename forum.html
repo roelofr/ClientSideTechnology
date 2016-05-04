@@ -6,57 +6,107 @@ Author: Roelof Roos
 -->
 <html>
 
-    <head>
-        <title>Forum - The Everything</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <title>Forum - The Everything</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="css/import.css">
-    </head>
+    <link rel="stylesheet" href="css/import.css">
 
-    <body>
+    <script src="/js/ext.js"></script>
+    <script src="/js/forum-sql.js"></script>
+    <script src="/js/forum.js"></script>
+  </head>
 
-        <header>
-            <h1>The Everything</h1>
-            <p>We have
-                <em>everything</em>. No questions asked</p>
-        </header>
+  <body>
 
-        <nav>
-            <ul>
-                <li><a href="./index.html">Home</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-                <li class="active"><a href="./forum.html">Forum</a></li>
-                <li><a href="./chatbox.html">Chatbox</a></li>
-            </ul>
-        </nav>
+    <header>
+      <h1>The Everything</h1>
+      <p>We have
+        <em>everything</em>. No questions asked</p>
+    </header>
 
-        <main class="generic forum">
-            <h1>Forum</h1>
+    <nav>
+      <ul>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+        <li class="active"><a href="./forum.html">Forum</a></li>
+        <li><a href="./chatbox.html">Chatbox</a></li>
+      </ul>
+    </nav>
 
-            <section>
-                <article class="forum-list">
-                    <h2>Available categories</h2>
+    <main class="generic forum">
+      <h1>Forum</h1>
 
-                    <div>
-                        <ul data-content="forum-topics"></ul>
-                    </div>
-                </article>
+      <article class="forum-list">
+        <h2>Available categories</h2>
 
-                <!-- Fill one column with nothing -->
-                <article class="forum-main">
-                    <h2>Topic:
-                        <span data-content="forum-topic"></span>
+        <div>
+          <ul class="forum-threads" data-content="forum-topics"></ul>
+        </div>
+
+        <a href="#" class="btn" data-target="new-thread">
+          <i class="fa fa-plus fa-fw"></i> Add topic
+        </a>
+      </article>
+
+      <!-- Fill one column with nothing -->
+      <article class="forum-main">
+        <h2>Topic: <span class="forum-topic"
+                            data-content="forum-topic">
+                        <span class="text-muted">n/a</span>
+                        </span>
                     </h2>
 
-                    <div data-content="forum-posts"></div>
-                </article>
-            </section>
-        </main>
+        <div class="forum-posts" data-content="forum-posts"></div>
 
-        <footer>
-            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">&copy; Roelof Roos 2015. This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-        </footer>
-    </body>
+        <div class="forum-posts" data-content="forum-post-preview"></div>
+
+        <a href="#" class="btn" data-target="new-post">
+          <i class="fa fa-plus fa-fw"></i> Add post
+        </a>
+      </article>
+
+      <article  data-content="new-post-form-container"
+                class="full-width forum-post-new">
+
+        <h2 data-content="new-post-title">Add post</h2>
+
+        <form data-content="new-post-form">
+          <div class="row">
+            <!-- Meta data first -->
+            <div class="col-4">
+              <label for="forum-fname">Voornaam</label>
+              <input type="text" class="forum-add-meta" id="forum-fname">
+
+              <label for="forum-lname">Achternaam</label>
+              <input type="text" class="forum-add-meta" id="forum-lname" />
+
+              <label for="forum-age">Leeftijd</label>
+              <input type="number" class="forum-add-meta" id="forum-age" />
+
+              <label for="forum-job">Beroep</label>
+              <input type="text" class="forum-add-meta" id="forum-job" />
+
+              <label for="forum-avatar">Avatar</label>
+              <input type="text" class="forum-add-meta" id="forum-avatar" />
+            </div>
+
+            <div class="col-8">
+              <label for="forum-post">Bericht</label>
+              <textarea cols="20" rows="5" id="forum-post" class="forum-add-post"></textarea>
+              <div class="pull-right">
+                  <button type="submit" class="btn">Toevoegen</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </article>
+    </main>
+
+    <footer>
+      &copy; Roelof Roos 2016. This work is licensed under the <a rel="license" href="/LICENSE">Affero General Public License v3</a>. The source code is available on <a href="https://github.com/roelofr/ClientSideTechnology">GitHub</a>.
+    </footer>
+  </body>
 
 </html>

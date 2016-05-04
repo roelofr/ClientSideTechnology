@@ -129,3 +129,13 @@ article.accent-1,
 section.accent-1 {
     background-color: #b2ebf2;
 }
+
+.btn {
+    color: #212121;
+    background: #e8f2f8;
+}
+.btn:hover,
+.btn:focus,
+.btn:active {
+    background: #b2ebf2;
+}

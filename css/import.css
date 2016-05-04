@@ -27,7 +27,13 @@ L:  1200px  1170px
 /** Import Font Awesome */
 @import "../libs/font-awesome/css/font-awesome.min.css";
 
+/** Grid **/
+@import "grids.css";
+
 /** Import own styling */
 @import "base-style.css";
 @import "theme-main.css";
 @import "theme-testreport.css";
+
+/** Import forum styling */
+@import "forum.css";
