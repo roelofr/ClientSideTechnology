@@ -8,17 +8,31 @@
 
 module.exports = function(grunt) {
 
-    var files = [
-        './Gruntfile.js',
-        './js/*.js'
-    ];
+    var files = {
+        js: [
+            './Gruntfile.js',
+            './js/*.js'
+        ],
+        css: [
+            './css/*.css'
+        ]
+    };
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        csslint: {
+            options: {
+                csslintrc: './.csslintrc'
+            },
+            normal: {
+                src: files.css
+            }
+        },
+
         // JS Linter
         jshint: {
-            files: files,
+            files: files.js,
             options: {
                 jshintrc: './.jshintrc'
             }
@@ -26,7 +40,7 @@ module.exports = function(grunt) {
 
         // JS Linter
         jscs: {
-            files: files,
+            files: files.js,
             options: {
                 config: './.jscsrc',
                 esnext: true
@@ -36,8 +50,15 @@ module.exports = function(grunt) {
         // Watch config
         watch: {
             js: {
-                files: files,
-                tasks: ['test'],
+                files: files.js,
+                tasks: ['test-js'],
+                options: {
+                    interrupt: true
+                }
+            },
+            css: {
+                files: files.css,
+                tasks: ['test-css'],
                 options: {
                     interrupt: true
                 }
@@ -47,16 +68,35 @@ module.exports = function(grunt) {
 
     // Load all used tasks
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-jscs');
+
+    // Watch
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Verifies JS is valid and standards are honored
     grunt.registerTask(
-        'test',
-        'Tests Javascript for operation and code standards',
-        [
+        'test-js',
+        'Tests Javascript for operation and code standards', [
             'jshint',
             'jscs'
+        ]
+    );
+
+    // Verifies CSS is valid
+    grunt.registerTask(
+        'test-css',
+        'Tests CSS for operation and code standards', [
+            'csslint'
+        ]
+    );
+
+    // Verifies all assets
+    grunt.registerTask(
+        'test',
+        'Tests Javascript for operation and code standards', [
+            'test-js',
+            'test-css'
         ]
     );
 
