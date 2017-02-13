@@ -1,69 +1,63 @@
-/**
+/**!
  * Part of Client Side Technology
  *
  * @author Roelof Roos <github@roelof.io>
- * @license AGPL-3
+ * @license AGPL-3.0
  */
-/*
-    Created on : 29-Jan-2015, 14:27:20
-    Author     : Roelof Roos <github@roelof.io>
-*/
 /* Change the sizing rules so it's easier to set certain sizes */
 
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: #f0f0f0;
   font-family: 'Open Sans', sans-serif;
   font-size: 13px;
-  font-weight: 400;
   font-style: normal;
-  color: #222;
+  font-weight: 400;
+  color: #222222;
+  background: #f0f0f0;
 }
 /** Base element styling */
 
 h1 {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 200;
-  color: #000;
   margin: 1em 0 .3em 0;
+  font-family: 'Raleway', sans-serif;
   font-size: 30px;
+  font-weight: 200;
+  color: #000000;
 }
 
 h2 {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 200;
-  color: #000;
   margin: 1em 0 .3em 0;
+  font-family: 'Raleway', sans-serif;
   font-size: 24px;
+  font-weight: 200;
+  color: #000000;
 }
 
 h3 {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 200;
-  color: #000;
   margin: 1em 0 .3em 0;
+  font-family: 'Raleway', sans-serif;
   font-size: 19px;
+  font-weight: 200;
+  color: #000000;
 }
 
 .title {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #000000;
 }
 
 p {
-  margin-bottom: 0.6em;
+  margin-bottom: .6em;
 }
 /** Start page components */
 
 header {
-  margin: 5px 0 0 0;
   padding: 15px 45px;
+  margin: 5px 0 0 0;
 }
 
 header .site-title {
@@ -75,8 +69,8 @@ nav {
 }
 
 nav > ul {
-  list-style: none;
   display: block;
+  list-style: none;
 }
 
 nav > ul > li {
@@ -84,11 +78,11 @@ nav > ul > li {
 }
 
 nav > ul > li > a {
-  padding: 10px 1em;
+  display: inline-block;
   height: 40px;
+  padding: 10px 1em;
   line-height: 20px;
   text-decoration: none;
-  display: inline-block;
 }
 
 nav li > a:hover {
@@ -96,8 +90,8 @@ nav li > a:hover {
 }
 
 main {
-  margin-bottom: 10px;
   padding-top: 15px;
+  margin-bottom: 10px;
 }
 
 footer {
@@ -117,7 +111,10 @@ footer a:hover {
 }
 
 @media (max-width: 767px) {
-  header, nav, main, footer {
+  header,
+  nav,
+  main,
+  footer {
     width: 100%;
   }
 }
@@ -127,9 +124,9 @@ footer a:hover {
   nav,
   main,
   footer {
-    margin-left: auto;
-    margin-right: auto;
     width: 750px;
+    margin-right: auto;
+    margin-left: auto;
   }
   header {
     margin-top: 15px;
@@ -156,10 +153,10 @@ footer a:hover {
 /** Homepage */
 
 .home section {
+  position: relative;
   float: left;
   min-height: 1px;
   padding: 10px 15px;
-  position: relative;
 }
 
 main h1:first-child,
@@ -179,16 +176,16 @@ main > h3 {
 }
 
 .home article {
-  margin: 0 0 15px;
   padding: 5px 10px;
+  margin: 0 0 15px;
 }
 
 .home article > h1 + .meta,
 .home article > h2 + .meta,
 .home article > h3 + .meta {
+  padding-left: 10px;
   margin-top: -5px;
   margin-bottom: 5px;
-  padding-left: 10px;
   color: #676767;
 }
 
@@ -218,11 +215,10 @@ main > h3 {
 /** Generic homepage */
 
 .generic article {
+  position: relative;
   float: left;
   min-height: 1px;
   padding: 10px 15px;
-  position: relative;
-
   margin-bottom: 1px;
 }
 
@@ -243,15 +239,13 @@ main > h3 {
 }
 
 .contact .user-photo {
-  border: 1px solid transparent;
   width: 100%;
   max-width: 200px;
   min-width: 100px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   padding: 4px;
   margin: 0 auto;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 
 .contact .user-photo + h2 {
@@ -263,11 +257,11 @@ main > h3 {
 */
 
 .pull-right {
-  float: right !important;
+  float: right;
 }
 
 .pull-left {
-  float: left !important;
+  float: left;
 }
 
 .text-center {
@@ -277,44 +271,44 @@ main > h3 {
     Clearfix
 */
 
-main:before,
-main:after {
+main::before,
+main::after {
   display: table;
-  content: " ";
+  content: ' ';
 }
 
-main:after {
+main::after {
   clear: both;
 }
 /** Width dependant hides */
 
 @media(max-width: 767px) {
   .hidden-mobile {
-    display: none !important;
+    display: none;
   }
   .visible-desktop,
   .visible-tablet {
-    display: none !important;
+    display: none;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   .hidden-tablet {
-    display: none !important;
+    display: none;
   }
   .visible-desktop,
   .visible-mobile {
-    display: none !important;
+    display: none;
   }
 }
 
 @media (min-width: 992px) {
   .visible-mobile,
   .visible-tablet {
-    display: none !important;
+    display: none;
   }
   .hidden-desktop {
-    display: none !important;
+    display: none;
   }
 }
 /**
@@ -336,8 +330,8 @@ dt {
 }
 
 dd {
+  margin-bottom: .4em;
   margin-left: 0;
-  margin-bottom: 0.4em;
 }
 /**
     Overrides for FontAwesome
@@ -347,9 +341,9 @@ dd {
   position: absolute;
   left: 0;
   width: 100%;
-  text-align: center;
-  font-size: 0.5em;
+  font-size: .5em;
   line-height: inherit;
+  text-align: center;
 }
 /**
   Chatbox page
@@ -377,10 +371,10 @@ dd {
 
 .btn {
     display: inline-block;
-    padding: 0.6em 0.9em;
+    padding: .6em .9em;
+    color: #222222;
     text-decoration: none;
-    color: #222;
-    background: #eee;
+    background: #eeeeee;
 
     border: 0 solid;
 

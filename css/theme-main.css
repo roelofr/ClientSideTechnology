@@ -2,72 +2,66 @@
  * Part of Client Side Technology
  *
  * @author Roelof Roos <github@roelof.io>
- * @license AGPL-3
+ * @license AGPL-3.0
  */
 /*
-    Created on : 29-Jan-2015, 14:48:25
-    Author     : Roelof Roos <github@roelof.io>
-
-    Colour palette: http://www.materialpalette.com/cyan/deep-orange
+ * Uses http://www.materialpalette.com/cyan/deep-orange
 */
 
 body {
-    color: #212121;
-    background-color: #f0f0f0;
+  color: #212121;
 
+  background-attachment: fixed;
+  background-color: #f0f0f0;
+  background-image: url('../img/bg.jpg');
+  background-position: bottom right;
+  background-repeat: no-repeat;
 
-    background-image: url(../img/bg.jpg);
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-attachment: fixed;
-
-    background-size: 900px 600px;
+  background-size: 900px 600px;
 }
 
-header, nav,
+header,
+nav,
 .generic section,
 .home article{
-    -webkit-box-shadow: 1px 1px 3px 0 rgba(50, 50, 50, 0.25);
-    -moz-box-shadow:    1px 1px 3px 0 rgba(50, 50, 50, 0.25);
-    box-shadow:         1px 1px 3px 0 rgba(50, 50, 50, 0.25);
+  box-shadow:         1px 1px 3px 0 rgba(50, 50, 50, .25);
 }
 
 header {
-    background-color: #0097a7;
+  color: #ffffff;
+  background-color: #0097a7;
+  background-image: url('../img/logo-header.png');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 310px 200px;
 
-    background-image: url(../img/logo-header.png);
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-size: 310px 200px;
-
-    color: #fff;
 }
 header .site-title {
-    color: #fff;
+  color: #ffffff;
 }
 
 nav {
-    background-color: #00bcd4;
+  background-color: #00bcd4;
 }
 nav li > a,
 nav li > a:hover,
 nav li > a:active,
 nav li > a:link {
-    color: #fff;
+  color: #ffffff;
 }
 nav li > a {
-    background-color: #00bcd4;
+  background-color: #00bcd4;
 }
 nav li > a:hover,
 nav .active > a {
-    background-color: #7ddde9;
+  background-color: #7ddde9;
 }
 
 .generic section {
-    background-color: #fafafa;
+  background-color: #fafafa;
 }
 main article {
-    background: #ffffff;
+  background: #ffffff;
 }
 
 footer,
@@ -76,35 +70,32 @@ footer a:link,
 footer a:active,
 footer a:hover,
 footer a:visited {
-    color: #999;
+  color: #999999;
 }
 
 .title {
-    border-bottom-color: #ddd;
+  border-bottom-color: #dddddd;
 }
 
 .contact .user-photo {
-    border-color: #DDD;
+  border-color: #dddddd;
 }
 
 .contact .see-through {
-    background-color: transparent;
-
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 /**
     Cleafix, via http://nicolasgallagher.com/micro-clearfix-hack/
 */
-.clearfix:before,
-.clearfix:after {
-    display: table;
-    content: " ";
+.clearfix::before,
+.clearfix::after {
+  display: table;
+  content: ' ';
 }
-.clearfix:after {
-    clear: both;
+.clearfix::after {
+  clear: both;
 }
 
 /**
@@ -112,30 +103,29 @@ footer a:visited {
 */
 
 dt {
-    color: #00bcd4;
+  color: #00bcd4;
 }
 dd {
-    color: #212121;
+  color: #212121;
 }
 
 hr {
+  margin: 20px 0;
 
-    border: 0;
-    border-top: 1px solid #eaeaea;
-
-    margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #eaeaea;
 }
 
 .accent-1 {
-    background-color: #b2ebf2;
+  background-color: #b2ebf2;
 }
 
 .btn {
-    color: #212121;
-    background: #e8f2f8;
+  color: #212121;
+  background: #e8f2f8;
 }
 .btn:hover,
 .btn:focus,
 .btn:active {
-    background: #b2ebf2;
+  background: #b2ebf2;
 }

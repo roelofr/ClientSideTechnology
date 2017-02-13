@@ -2,22 +2,22 @@
  * Part of Client Side Technology
  *
  * @author Roelof Roos <github@roelof.io>
- * @license AGPL-3
+ * @license AGPL-3.0
  */
 
 /* Threads */
 .forum-threads {
     display: block;
-    list-style: none;
-
     margin-bottom: 2em;
+
+    list-style: none;
 }
 
 .forum-threads li {
-    padding: 0;
-    margin-bottom: 1px;
-    color: #212121;
-    display: block;
+  display: block;
+  padding: 0;
+  margin-bottom: 1px;
+  color: #212121;
 }
 
 .forum-thread-message,
@@ -25,39 +25,39 @@
 .forum-thread:link,
 .forum-thread:active,
 .forum-thread:visited {
-    display: block;
-    padding: 0.5em 1em;
-    text-decoration: none;
-    color: #212121;
-    background-color: transparent;
-    transition: background-color 300ms;
+  display: block;
+  padding: .5em 1em;
+  color: #212121;
+  text-decoration: none;
+  background-color: transparent;
+  transition: background-color 300ms;
 }
 
 .forum-thread:hover,
 .forum-thread:focus {
-    background-color: #b2ebf2;
+  background-color: #b2ebf2;
 }
 
 .forum-thread-name,
 .forum-thread-desc {
-    padding-bottom: 0;
-    padding-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .forum-thread-name {
-    font-weight: bold;
+  font-weight: bold;
 }
 .forum-thread-desc {
-    opacity: 0.7;
+  opacity: .7;
 }
 
 /* Post */
 .forum-post {
-    display: flex;
-    padding: 0.4em 0.7em;
-    margin-bottom: 0.6em;
-    align-items: stretch;
-    flex-direction: row;
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  padding: .4em .7em;
+  margin-bottom: .6em;
 }
 .forum-post:hover {
     background-color: #f0f0f0;
@@ -65,109 +65,109 @@
 
 /* csslint ignore:box-model */
 .forum-post-side {
-    order: 0;
-    flex-grow: 0;
-    min-width: 150px;
+  flex-grow: 0;
+  order: 0;
+  min-width: 150px;
 
-    border-right: 1px solid #eee;
+  border-right: 1px solid #eeeeee;
 }
 
 .forum-post-main {
-    flex-grow: 1;
-    min-width: 200px;
+  flex-grow: 1;
+  min-width: 200px;
 }
 
 .forum-post-side figure {
-    width: 128px;
-    margin: 0 auto;
-    border: 1px solid #c0c0c0;
+  width: 128px;
+  margin: 0 auto;
+  border: 1px solid #c0c0c0;
 
 }
 
 .forum-post-side img {
-    margin: 1px;
-    width: 126px;
+  width: 126px;
+  margin: 1px;
 }
 
 .forum-post-side p {
-    display: block;
-    padding-top: 0.5em;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    text-align: center;
+  display: block;
+  padding-top: .5em;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 .forum-post-main-title {
-    display: block;
-    font-weight: bold;
-    padding: 0.4em 0.7em;
-    border-bottom: 1px solid #999;
+  display: block;
+  padding: .4em .7em;
+  font-weight: bold;
+  border-bottom: 1px solid #999999;
 }
 
 .forum-post-main-content {
-    padding: 0.4em 0.7em;
-    font-family: 'Consolas', 'Courier New', monospace;
-    color: #000;
+  padding: .4em .7em;
+  font-family: 'Consolas', 'Courier New', monospace;
+  color: #000000;
 }
 
 .forum-post + .forum-post {
-    border-top: 1px solid #eee;
-    margin-top: 0.4em;
-    padding-top: 0.4em;
+  padding-top: .4em;
+  margin-top: .4em;
+  border-top: 1px solid #eeeeee;
 }
 
 
 /* Messages */
 .forum-thread-message,
 .forum-post-message {
-    color: #989898;
-    font-size: 1.5em;
-    padding: 1.5em 1em;
-    text-align: center;
+  padding: 1.5em 1em;
+  font-size: 1.5em;
+  color: #989898;
+  text-align: center;
 }
 
 /* Add post form */
 .forum-post-new {
-    margin-top: 1em;
-    padding: 0.4em 0.8em;
+  padding: .4em .8em;
+  margin-top: 1em;
 }
 
 .forum-post-new .row::after {
-    display: block;
-    content: "";
-    clear: left;
+  display: block;
+  clear: left;
+  content: '';
 }
 
 .forum-add-meta,
 .forum-add-post {
-    padding: 0.4em 0.6em;
-    border: 1px solid #00BCD4;
-    border-radius: 2px;
-    color: #212121;
-    background-color: #fff;
+  padding: .4em .6em;
+  color: #212121;
+  background-color: #ffffff;
+  border: 1px solid #00bcd4;
+  border-radius: 2px;
 }
 
 .forum-post-new label {
-    padding: 0.4em 0.8em;
-    display: block;
+  display: block;
+  padding: .4em .8em;
 }
 
 .forum-add-meta {
-    display: block;
-    width: 100%;
-    min-width: 8em;
+  display: block;
+  width: 100%;
+  min-width: 8em;
 }
 
 .forum-add-meta + label {
-    margin-top: 0.5em;
+  margin-top: .5em;
 }
 
 .forum-add-post {
-    display: block;
-    width: 100%;
-    min-width: 8em;
+  display: block;
+  width: 100%;
+  min-width: 8em;
+  min-height: 19.5em;
 
-    min-height: 19.5em;
-    margin-bottom: 0.5em;
-    resize: vertical;
+  margin-bottom: .5em;
+  resize: vertical;
 }
