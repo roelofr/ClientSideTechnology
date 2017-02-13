@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
   <head>
     <title>Welcome - The Everything</title>
     <meta charset="UTF-8">
@@ -9,60 +9,60 @@
   </head>
   <body>
 
-    <header>
-      <h1 class="site-title">The Everything</h1>
-      <p>We have <em>everything</em>. No questions asked</p>
+    <header class="site-header">
+      <h1 class="site-header__title">The Everything</h1>
+      <p class="site-header__slogan">We have <em>everything</em>. No questions asked</p>
     </header>
 
-    <nav>
-      <ul>
-        <li class="active"><a href="./index.html">Home</a></li>
-        <li><a href="./contact.html">Contact</a></li>
-        <li><a href="./forum.html">Forum</a></li>
-        <li><a href="./chatbox.html">Chatbox</a></li>
+    <nav class="site-nav">
+      <ul class="site-nav__list">
+        <li class="site-nav__link site-nav__link--active"><a href="./index.html">Home</a></li>
+        <li class="site-nav__link"><a href="./contact.html">Contact</a></li>
+        <li class="site-nav__link"><a href="./forum.html">Forum</a></li>
+        <li class="site-nav__link"><a href="./chatbox.html">Chatbox</a></li>
       </ul>
     </nav>
 
     <main class="home">
-      <section>
-        <h1>News</h1>
+      <section class="home__block">
+        <h2>News</h2>
 
-        <article>
+        <article class="home__article">
           <h2>New layout</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce porta lacinia orci et dignissim. Etiam bibendum nec quam vel scelerisque. Aliquam at ultricies velit, vel mattis lorem. Fusce fermentum porta erat, non semper erat condimentum nec. Proin eget dui sit amet arcu lacinia porttitor. In sit amet nisi semper, fermentum nisl eu, molestie dolor. Fusce eget tellus vel ex laoreet sagittis. Nulla aliquam sollicitudin erat, eu consectetur orci gravida vel. Suspendisse potenti.</p>
         </article>
 
-        <article>
+        <article class="home__article">
           <h2>Website hacked</h2>
           <p>Curabitur hendrerit consectetur justo in convallis. Donec tincidunt, leo non ultricies aliquam, dolor est ullamcorper libero, vitae auctor orci ante sit amet quam. Nullam sagittis euismod lobortis. Ut facilisis accumsan nisi, nec lacinia elit vulputate id. Nam dolor mi, tempor sit amet vehicula eget, porta in sapien. Praesent hendrerit porta ligula at sagittis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent ut tempus erat, ac feugiat ex.</p>
         </article>
 
       </section>
 
-      <section>
-        <h1>Recent posts</h1>
+      <section class="home__block">
+        <h2>Recent posts</h2>
 
-        <article>
+        <article class="home__article">
           <h2>RE: Your mom</h2>
           <div class="meta">By <a href="/contact.html">Roelof Roos</a></div>
           <p>In reply to a recent allegation made by <i>360Pawnz0r</i> on XBox Live, I would like to offer a reprisal. Curabitur hendrerit consectetur justo in convallis. Donec tincidunt, leo non ultricies aliquam, dolor est ullamcorper libero, vitae auctor orci ante sit amet quam. Nullam sagittis euismod lobortis. Ut facilisis accumsan nisi, nec lacinia elit vulputate id.</p>
         </article>
 
-        <article>
+        <article class="home__article">
           <h2>Topic 2</h2>
           <div class="meta">By Jan</div>
           <p>Nam dolor mi, tempor sit amet vehicula eget, porta in sapien. Praesent hendrerit porta ligula at sagittis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent ut tempus erat, ac feugiat ex.</p>
         </article>
       </section>
-      <section>
-        <h1>Recently Reviewed</h1>
+      <section class="home__block">
+        <h2>Recently Reviewed</h2>
 
-        <article>
+        <article class="home__article">
           <h2>The Game</h2>
           <p>Aside from losing it, <em>The Game</em> looks very promising. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce porta lacinia orci et dignissim. Etiam bibendum nec quam vel scelerisque. Aliquam at ultricies velit, vel mattis lorem. Fusce fermentum porta erat, non semper erat condimentum nec.</p>
         </article>
 
-        <article>
+        <article class="home__article">
           <h2>Das Spiel</h2>
 
           <p>Being a German rip-off of <i>The Game</i>, <em>Das Spiel</em> didn't raise any very high expectations. However, due to plot twists it actually did surprise me. Ut facilisis accumsan nisi, nec lacinia elit vulputate id.</p>
@@ -71,7 +71,7 @@
       </section>
     </main>
 
-    <footer>
+    <footer class="site-footer">
         &copy; Roelof Roos 2016. This work is licensed under the <a
         rel="license" href="/LICENSE">Affero General Public License v3</a>.
         The source code is available on <a
