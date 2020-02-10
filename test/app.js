@@ -1,3 +1,3 @@
 var myApp = {
-	init: function(){return true;}
+  init: function () { return true }
 }

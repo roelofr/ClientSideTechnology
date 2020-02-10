@@ -1,34 +1,77 @@
+<!DOCTYPE html>
 <html>
-<head>
-<link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine/jasmine_favicon.png">
-<link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine/jasmine.css">
 
-<script type="text/javascript" src="jasmine/lib/jasmine/jasmine.js"></script>
-<script type="text/javascript" src="jasmine/lib/jasmine/jasmine-html.js"></script>
-<script type="text/javascript" src="jasmine/lib/jasmine/boot.js"></script>
-<script type="text/javascript" src="app.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine/jasmine.css">
+
+  <!-- Boot -->
+  <script type="text/javascript" src="jasmine/lib/jasmine/jasmine.js"></script>
+  <script type="text/javascript" src="jasmine/lib/jasmine/jasmine-html.js"></script>
+  <script type="text/javascript" src="jasmine/lib/jasmine/boot.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+
+  <!-- External requirements -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <!-- Includes -->
+  <script src="../js/feedbackWidget.js"></script>
 
 </head>
+
 <body>
 
-<script>
+  <!-- Dialog -->
+  <div id="feedback-widget" class="alert alert-success" role="alert">
+    <p>Veel succes met deze module!</p>
+  </div>
 
-describe("A suite", function() {
-  it("contains spec with an expectation", function() {
-    expect(true).toBe(true);
-  });
-});
+  <script>
+    // Ensure
+    beforeAll(function (done) {
+      $(function () {
+        done()
+      })
+    })
 
-describe("Application initialisation", function() {
-  it("Method init returns true", function() {
-  	const result = myApp.init();
-    expect(result).toBe(true);
-  });
-});
+    // Suite true
+    describe('A suite', function () {
+      it('contains spec with an expectation', function () {
+        expect(true).toBe(true)
+      })
+    })
 
+    // App init
+    describe('Application initialisation', function () {
+      it('Method init returns true', function () {
+        const result = myApp.init()
+        expect(result).toBe(true)
+      })
+    })
 
-</script>
+    // Test modal
+    const widgetSelector = 'feedback-widget'
+    describe('Test feedback widget', function () {
+      // Expect a widget to exist
+      it('Expects a feedback model to exist', function () {
+        const widgetElement = $(`#${widgetSelector}`)
+        expect(widgetElement).toBeDefined();
+        expect(widgetElement.length).toBe(1);
 
+        const widget = new FeedbackWidget(widgetSelector)
+        expect(widget).toBeDefined();
+
+        widget.hide()
+        console.log(widgetElement)
+        expect(widgetElement.attr('style')).toBe('display: none;');
+
+        widget.show()
+        expect(widgetElement.attr('style')).toBe('display: block;');
+      })
+    })
+  </script>
 
 </body>
+
 </html>
