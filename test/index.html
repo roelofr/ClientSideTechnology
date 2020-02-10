@@ -51,15 +51,17 @@
     })
 
     // Test modal
-    const widgetSelector = 'feedback-widget'
     describe('Test feedback widget', function () {
+      const widgetSelector = 'feedback-widget'
+      const widgetElement = $(`#${widgetSelector}`)
+      const widgetNode = widgetElement.get(0)
+      const widget = new FeedbackWidget(widgetSelector)
+
       // Expect a widget to exist
       it('Expects a feedback model to exist', function () {
-        const widgetElement = $(`#${widgetSelector}`)
         expect(widgetElement).toBeDefined();
         expect(widgetElement.length).toBe(1);
 
-        const widget = new FeedbackWidget(widgetSelector)
         expect(widget).toBeDefined();
 
         widget.hide()
@@ -68,6 +70,33 @@
 
         widget.show()
         expect(widgetElement.attr('style')).toBe('display: block;');
+      })
+
+      // Expect a widget to show
+      it('Expects to be hidden on hide()', function () {
+        widget.hide()
+        expect(widgetNode.style.display).toBe('none');
+      })
+
+      it('Expects to be visible on show()', function () {
+
+        widget.show()
+        expect(widgetNode.style.display).toBe('block');
+      })
+
+      it('Contains the message provided', function () {
+        widget.show('the message provided', 'success')
+        expect(widgetNode.textContent).toBe('the message provided')
+      })
+
+      it('Turns green when shown succesful', function () {
+        widget.show('test', 'success')
+        expect(widgetNode.classList).toContain('alert-success')
+      })
+
+      it('Turns red when shown unsuccesful', function () {
+        widget.show('test', 'fail')
+        expect(widgetNode.classList).toContain('alert-danger')
       })
     })
   </script>
