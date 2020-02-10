@@ -1,0 +1,12 @@
+{
+    "extends": [
+        "standard"
+    ],
+    "env": {
+        "browser": true,
+        "jquery": true
+    },
+    "rules": {
+        "no-prototype-builtins": "off"
+    }
+}
