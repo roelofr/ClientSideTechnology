@@ -17,6 +17,7 @@
 
   <!-- Includes -->
   <script src="../js/feedbackWidget.js"></script>
+  <script src="../js/game.js"></script>
 
 </head>
 
@@ -105,6 +106,13 @@
         expect(widgetNode.textContent).toContain('error - Loop message 4')
         expect(widgetNode.textContent).toContain('error - Loop message 10')
         expect(widgetNode.textContent).not.toContain('error - Loop message 12')
+      })
+    })
+
+    // Test game
+    describe('Game tests', function () {
+      it ('tests if a \'Game\' variable is available', function () {
+        expect(Game).toBeDefined()
       })
     })
   </script>
