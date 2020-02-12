@@ -46,18 +46,37 @@ Game.Reversi = (function () {
 Game.Data = (function (jQuery) {
   // unused
   const configMap = {
+    environment: 'development',
     apiKey: 'd1a08275609ff9ed0c2999ea73413516',
     mock: [
       {
         url: 'api/Spel/Beurt',
         data: 0
+      },
+      {
+        url: '/data/2.5/weather',
+        data: {
+          main: {
+            temp: 279.35,
+            feels_like: 272.76,
+            temp_min: 278.15,
+            temp_max: 280.37,
+            pressure: 1012,
+            humidity: 56
+          },
+          id: 2743476,
+          name: 'Gemeente Zwolle'
+        }
       }
     ]
   }
 
   // Private function init
-  const init = function () {
-    console.log('Private information, including %s!', configMap.api)
+  const init = function (environment) {
+    if (!['production', 'development'].contains(environment)) {
+      throw Error(`Environment ${environment} is invalid`)
+    }
+    configMap.environment = environment
   }
 
   const getMockData = function (url) {
@@ -85,8 +104,10 @@ Game.Data = (function (jQuery) {
     const uri = new URL(url)
     uri.searchParams.set('apiKey', configMap.apiKey)
 
-    // Mock it
-    return getMockData(`${uri}`)
+    // Mock it if local
+    if (configMap.environment === 'development') {
+      return getMockData(`${uri}`)
+    }
 
     return jQuery.get(uri)
       .then(value => value)
