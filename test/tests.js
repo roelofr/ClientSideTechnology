@@ -117,4 +117,11 @@ describe('Test Model model on Game', function () {
     expect(Game.Model.init).toBeDefined()
     expect(typeof Game.Model.init).toBe('function')
   })
+  it('tests if \'Game.Model\' can retrieve weather', async function () {
+    expect(Game.Model).toBeDefined()
+    expect(Game.Model.getWeather).toBeDefined()
+    expect(typeof Game.Model.getWeather).toBe('function')
+    await expectAsync(Game.Model.getWeather('Zwolle, NL')).toBeResolved()
+    await expectAsync(Game.Model.getWeather('Verweggistan, GB')).toBeRejected()
+  })
 })

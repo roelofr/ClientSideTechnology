@@ -42,23 +42,31 @@ Game.Reversi = (function () {
   return { init }
 })()
 
-
 // Add 'data' module
-Game.Data = (function () {
+Game.Data = (function (jQuery) {
   // unused
-  const configMap = {}
-
-  // Log start
-  console.log('hallo, vanuit data module met config map %o', configMap)
+  const configMap = {
+    apiKey: 'd1a08275609ff9ed0c2999ea73413516'
+  }
 
   // Private function init
   const init = function () {
     console.log('Private information, including %s!', configMap.api)
   }
 
+  const get = function (url) {
+    // Add API key to request
+    const uri = new URL(url)
+    uri.searchParams.set('apiKey', configMap.apiKey)
+
+    return jQuery.get(uri)
+      .then(value => value)
+      .catch(error => console.error('Command failed with %s (%o)', error.message, error))
+  }
+
   // Waarde/object geretourneerd aan de outer scope
-  return { init }
-})()
+  return { init, get }
+})(jQuery)
 
 // Add 'model' module
 Game.Model = (function () {
@@ -73,6 +81,23 @@ Game.Model = (function () {
     console.log('Private information, including %s!', configMap.api)
   }
 
+  const getWeather = function (city) {
+    // Build URL safely
+    const url = new URL('https://api.openweathermap.org/data/2.5/weather')
+    url.searchParams.set('q', city)
+
+    // Send request
+    return Game.Data.get(url)
+      .then((value) => {
+        // Expect a temperature to exist
+        if (!value.main || !value.main.temp) {
+          throw Error('Temperature is missing')
+        }
+
+        return value
+      })
+  }
+
   // Waarde/object geretourneerd aan de outer scope
-  return { init }
+  return { init, getWeather }
 })()
