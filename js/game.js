@@ -46,7 +46,13 @@ Game.Reversi = (function () {
 Game.Data = (function (jQuery) {
   // unused
   const configMap = {
-    apiKey: 'd1a08275609ff9ed0c2999ea73413516'
+    apiKey: 'd1a08275609ff9ed0c2999ea73413516',
+    mock: [
+      {
+        url: 'api/Spel/Beurt',
+        data: 0
+      }
+    ]
   }
 
   // Private function init
@@ -54,10 +60,33 @@ Game.Data = (function (jQuery) {
     console.log('Private information, including %s!', configMap.api)
   }
 
+  const getMockData = function (url) {
+    const urlPath = (new URL(url)).pathname
+
+    return new Promise((resolve, reject) => {
+      // Check all mocks
+      for (const mock of configMap.mock) {
+        // Match the path
+        if (mock.url === urlPath) {
+          resolve(mock.data)
+
+          // Stop loop
+          return
+        }
+      }
+
+      // Reject if no match was found
+      reject(Error('Service not available'))
+    })
+  }
+
   const get = function (url) {
     // Add API key to request
     const uri = new URL(url)
     uri.searchParams.set('apiKey', configMap.apiKey)
+
+    // Mock it
+    return getMockData(`${uri}`)
 
     return jQuery.get(uri)
       .then(value => value)
