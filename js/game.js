@@ -20,3 +20,20 @@ const Game = (function (url) {
   // Waarde/object geretourneerd aan de outer scope
   return { init, getConfigMap }
 })(apiUrl)
+
+// Add 'reversi' module
+Game.Reversi = (function () {
+  // unused
+  const configMap = {}
+
+  // Log start
+  console.log('hallo, vanuit reversi module met config map %o', configMap)
+
+  // Private function init
+  const init = function () {
+    console.log('Private information, including %s!', configMap.api)
+  }
+
+  // Waarde/object geretourneerd aan de outer scope
+  return { init }
+})()

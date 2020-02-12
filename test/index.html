@@ -124,6 +124,11 @@
         expect(typeof Game.getConfigMap()).toBe('object')
         expect(Game.getConfigMap().api).toBeDefined()
       })
+      it('tests if \'Game.Reversi\' exists and can be initialised', function () {
+        expect(Game.Reversi).toBeDefined()
+        expect(Game.Reversi.init).toBeDefined()
+        expect(typeof Game.Reversi.init).toBe('function')
+      })
     })
   </script>
 
