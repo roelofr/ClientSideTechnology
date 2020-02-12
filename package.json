@@ -4,7 +4,7 @@
   "description": "Client",
   "main": "index.html",
   "author": "Roelof Roos <github@roelof.io>",
-  "license": "AFL",
+  "license": "AFL-3.0",
   "private": true,
   "devDependencies": {
     "eslint": "^6.8.0",
