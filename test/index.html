@@ -118,6 +118,12 @@
         expect(Game.init).toBeDefined()
         expect(typeof Game.init).toBe('function')
       })
+      it('tests if \'Game\' has a method to get the configMap', function () {
+        expect(Game.getConfigMap).toBeDefined()
+        expect(typeof Game.getConfigMap).toBe('function')
+        expect(typeof Game.getConfigMap()).toBe('object')
+        expect(Game.getConfigMap().api).toBeDefined()
+      })
     })
   </script>
 
