@@ -118,6 +118,11 @@
         expect(Game.init).toBeDefined()
         expect(typeof Game.init).toBe('function')
       })
+      it('tests if Game.init\'s callback is called', function () {
+        let callback = jasmine.createSpy('init callback', () => console.log('Cake was dispensed'))
+        expect(Game.init(callback)).not.toBeDefined()
+        expect(callback.calls.any()).toBe(true)
+      })
       it('tests if \'Game\' has a method to get the configMap', function () {
         expect(Game.getConfigMap).toBeDefined()
         expect(typeof Game.getConfigMap).toBe('function')

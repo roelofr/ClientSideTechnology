@@ -9,8 +9,12 @@ const Game = (function (url) {
   console.log('hallo, vanuit een module met config map %o', configMap)
 
   // Private function init
-  const init = function () {
+  const init = function (callback) {
     console.log('Private information, including %s!', configMap.api)
+
+    // Do stuff
+
+    callback()
   }
 
   const getConfigMap = function () {
