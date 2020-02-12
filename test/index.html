@@ -111,8 +111,12 @@
 
     // Test game
     describe('Game tests', function () {
-      it ('tests if a \'Game\' variable is available', function () {
-        expect(Game).toBeDefined()
+        it('tests if a \'Game\' variable is available', function () {
+          expect(Game).toBeDefined()
+        })
+      it('tests if \'Game\' has an init function', function () {
+        expect(Game.init).toBeDefined()
+        expect(typeof Game.init).toBe('function')
       })
     })
   </script>
