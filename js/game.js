@@ -4,21 +4,30 @@ const Game = (function (url) {
   const configMap = {
     api: url
   }
-
-  // Log start
-  console.log('hallo, vanuit een module met config map %o', configMap)
+  const stateMap = {
+    token: null,
+    gameState: null
+  }
 
   // Private function init
-  const init = function (callback) {
-    console.log('Private information, including %s!', configMap.api)
+  const init = function (callback, token) {
+    // Set token
+    stateMap.token = token
 
-    // Do stuff
+    // Start auto-update
+    setInterval(_getCurrentGameState, 2000)
 
+    // Complete
     callback()
   }
 
   const getConfigMap = function () {
     return configMap
+  }
+
+  const _getCurrentGameState = function () {
+    Game.Model.getGameState()
+      .then(value => stateMap.gameState = value)
   }
 
   // Waarde/object geretourneerd aan de outer scope
@@ -30,12 +39,9 @@ Game.Reversi = (function () {
   // unused
   const configMap = {}
 
-  // Log start
-  console.log('hallo, vanuit reversi module met config map %o', configMap)
-
   // Private function init
   const init = function () {
-    console.log('Private information, including %s!', configMap.api)
+    // Do stuff
   }
 
   // Waarde/object geretourneerd aan de outer scope
@@ -50,7 +56,7 @@ Game.Data = (function (jQuery) {
     apiKey: 'd1a08275609ff9ed0c2999ea73413516',
     mock: [
       {
-        url: 'api/Spel/Beurt',
+        url: '/api/Spel/Beurt',
         data: 0
       },
       {
@@ -86,7 +92,7 @@ Game.Data = (function (jQuery) {
       // Check all mocks
       for (const mock of configMap.mock) {
         // Match the path
-        if (mock.url === urlPath) {
+        if (urlPath.startsWith(mock.url)) {
           resolve(mock.data)
 
           // Stop loop
@@ -123,13 +129,25 @@ Game.Model = (function () {
   // unused
   const configMap = {}
 
-  // Log start
-  console.log('hallo, vanuit model module met config map %o', configMap)
-
   // Private function init
   const init = function () {
-    console.log('Private information, including %s!', configMap.api)
+    // Do stuff
   }
+
+  const getGameState = function (token) {
+    if (!token) {
+      throw Error('Token is missing')
+    }
+
+    return Game.Data.get(`/api/Spel/Beurt/${token}`)
+      .then(value => {
+        if ([0, 1, 2].contains(value)) {
+          return value
+        }
+        throw Error(`Recieved value ${value} is invalid`)
+      })
+  }
+
 
   const getWeather = function (city) {
     // Build URL safely
@@ -149,5 +167,5 @@ Game.Model = (function () {
   }
 
   // Waarde/object geretourneerd aan de outer scope
-  return { init, getWeather }
+  return { init, getWeather, getGameState }
 })()
