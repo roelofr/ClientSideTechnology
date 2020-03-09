@@ -1,7 +1,7 @@
 const config = require('./config')
 
 // JS task
-const js = require('./tasks/js').js(config.voornaam)
+const js = require('./tasks/js').js(config)
 js.displayName = 'js'
 
 // Hello task
