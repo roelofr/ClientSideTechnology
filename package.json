@@ -1,7 +1,7 @@
 {
   "name": "@roelofr/client",
   "version": "0.0.1",
-  "description": "Client",
+  "description": "Single Page Application for SE2 Client",
   "main": "index.html",
   "author": "Roelof Roos <github@roelof.io>",
   "license": "AFL-3.0",
@@ -12,9 +12,11 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "gulp": "^4.0.2"
   },
   "scripts": {
-    "lint": "eslint js/ test/"
+    "lint": "eslint js/ test/",
+    "build": "gulp"
   }
 }
