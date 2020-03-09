@@ -111,7 +111,7 @@ Game.Data = (function (jQuery) {
     uri.searchParams.set('apiKey', configMap.apiKey)
 
     // Mock it if local
-    if (configMap.environment === 'development') {
+    if (configMap.environment === 'development' && !('jasmine' in window)) {
       return getMockData(`${uri}`)
     }
 
