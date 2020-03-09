@@ -5,6 +5,7 @@
   "main": "index.html",
   "author": "Roelof Roos <github@roelof.io>",
   "license": "AFL-3.0",
+  "repository": "git@github.com:roelofr/se2-client.git",
   "private": true,
   "devDependencies": {
     "eslint": "^6.8.0",
