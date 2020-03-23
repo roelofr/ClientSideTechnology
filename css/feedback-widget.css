@@ -1,0 +1,86 @@
+.feedback-dialog {
+  background: #f0f0f0;
+  border-radius: 0.5rem;
+  border: 2px solid #5a5a5a;
+  color: #2d2d2d;
+  padding: 1rem;
+}
+
+.feedback-dialog__main {
+  display: flex;
+  flex-flow: row;
+  justify-items: center;
+}
+
+.feedback-dialog__icon {
+  width: 4rem;
+  margin-right: 1rem;
+  flex: 0 0 4rem;
+}
+
+.feedback-dialog__icon-img {
+  width: 4rem;
+  height: 4rem;
+}
+
+.feedback-dialog__body {
+  align-items: start;
+  display: flex;
+  flex-flow: column;
+  flex: 0 1 100%;
+  justify-content: center;
+}
+
+.feedback-dialog__body-line {
+  margin: 0 0 1rem 0;
+}
+
+.feedback-dialog__footer {
+  display: flex;
+  flex-flow: row;
+  justify-content: end;
+}
+
+.feedback-dialog__button {
+  background: #546e7a;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.25rem;
+  color: #fff;
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.20);
+  transition: box-shadow 300ms;
+}
+
+.feedback-dialog__button:hover, .feedback-dialog__button:active {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.feedback-dialog__button--cancel {
+  /* none */
+}
+
+.feedback-dialog__button--continue {
+  background: rgb(2, 119, 189);
+}
+
+.feedback-dialog__button--shake {
+  animation: shake 800ms cubic-bezier(0.75, 0.09, 0.22, 0.84);
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate(-1px, 0);
+  }
+  20%, 80% {
+    transform: translate(2px, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate(-4px, 0);
+  }
+  40%, 60% {
+    transform: translate(4px, 0);
+  }
+}

@@ -169,3 +169,13 @@ Game.Model = (function () {
   // Waarde/object geretourneerd aan de outer scope
   return { init, getWeather, getGameState }
 })()
+
+Game.Stats = (function () {
+  const configMap = {
+
+  };
+
+  const init = () => { }
+
+  return { init }
+})

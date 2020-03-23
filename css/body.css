@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font: 16px Roboto normal;
+  color: #222;
+  background: #fff;;
+}
+
+body {
+  font-size: 1rem;
+}
+
+.hidden {
+  display: none;
+}
