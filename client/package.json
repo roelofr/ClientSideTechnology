@@ -24,6 +24,7 @@
   },
   "scripts": {
     "lint": "eslint js/ test/",
-    "build": "gulp"
+    "build": "gulp default js css",
+    "watch": "gulp watch"
   }
 }

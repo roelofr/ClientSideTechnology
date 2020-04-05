@@ -95,3 +95,50 @@ Sources:
 Sources:
 
 1. https://www.fastcompany.com/90462342/every-voter-in-israel-just-had-their-data-leaked-in-grave-security-breach?partner=rss
+
+
+## Testing environment
+
+For the testing environment we needed a locally hosted MSSQL server. To save on installing extra
+software (since we already have Docker) and to ease configuration, I wrote the script below:
+
+```bash
+#!/usr/bin/env bash
+set -e
+
+# Check if container is running
+if [ "$( docker ps --filter="name=roelof-mssql" | wc -l )" -eq 2 ]; then
+	echo "MSSQL already running"
+	exit 0
+fi
+
+docker run \
+	--env 'ACCEPT_EULA=Y' \
+	--env 'SA_PASSWORD=<password>' \
+	--name 'roelof-mssql' \
+	--publish 127.0.0.1:1433:1433 \
+	--volume mssql-data:/var/opt/mssql \
+	--detach \
+	--rm \
+	mcr.microsoft.com/mssql/server:2019-latest
+```
+
+Writing this to `start-mssql` and chmodding it with `chmod ug+x start-mssql` we can
+allow our user to run it on demand, or just queue it on boot using `@reboot $HOME/bin/start-mssql` in crontab.
+
+After doing this, we downloaded the Smoketest and I made the following script to ensure the URLs are consistent (a problem I ran in
+on my acceptance server, but not on testing, but since they should be similar, this'll do).
+
+```bash
+
+```
+
+Lastly we configured Apache with the following records
+
+```apache2
+ProxyPass / http://localhost:5000/
+ProxyPassReverse / http://localhost:5000/
+ProxyPreserveHost on
+```
+
+For our HTTPS-connection on the server

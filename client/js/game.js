@@ -53,7 +53,7 @@ Game.Data = (function (jQuery) {
   // unused
   const configMap = {
     environment: 'development',
-    apiKey: 'd1a08275609ff9ed0c2999ea73413516',
+    apiKey: '11feb6b2ea8ede539ec046b49ee6f365',
     mock: [
       {
         url: '/api/Spel/Beurt',

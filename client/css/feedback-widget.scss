@@ -1,9 +1,10 @@
 .feedback-dialog {
   background: #f0f0f0;
   border-radius: 0.5rem;
-  border: 2px solid #5a5a5a;
-  color: #2d2d2d;
+  border: 2px solid #EDF2F7;
+  background: #F7FAFC;
   padding: 1rem;
+  font-size: 8px;
 }
 
 .feedback-dialog__main {
@@ -13,6 +14,7 @@
 }
 
 .feedback-dialog__icon {
+  display: none;
   width: 4rem;
   margin-right: 1rem;
   flex: 0 0 4rem;
@@ -37,33 +39,46 @@
 
 .feedback-dialog__footer {
   display: flex;
-  flex-flow: row;
-  justify-content: end;
+  flex-flow: column nowrap;
+  align-items: stretch;
 }
 
 .feedback-dialog__button {
-  background: #546e7a;
   text-transform: uppercase;
   font-weight: 500;
   border: none;
   border-radius: 0.25rem;
-  color: #fff;
-  margin-left: 1rem;
   padding: 0.5rem 1rem;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.20);
   transition: box-shadow 300ms;
+  background: #CBD5E0;
+  color: #1A202C;
+  margin-bottom: 1rem;
 }
 
 .feedback-dialog__button:hover, .feedback-dialog__button:active {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+  background: #A0AEC0;
+  color: #1A202C;
 }
 
-.feedback-dialog__button--cancel {
-  /* none */
+.feedback-dialog__button--primary {
+  background: #3182CE;
+  color: #EBF8FF;
 }
 
-.feedback-dialog__button--continue {
-  background: rgb(2, 119, 189);
+.feedback-dialog__button--primary:hover, .feedback-dialog__button--primary:focus {
+  background: #2B6CB0;
+  color: #EBF8FF;
+}
+
+.feedback-dialog__button--secondary {
+  background: #A0AEC0;
+  color: #F7FAFC;
+}
+
+.feedback-dialog__button--secondary:hover, .feedback-dialog__button--secondary:focus {
+  background: #718096;
+  color: #F7FAFC;
 }
 
 .feedback-dialog__button--shake {
@@ -82,5 +97,23 @@
   }
   40%, 60% {
     transform: translate(4px, 0);
+  }
+}
+
+@media (min-width: 768px) {
+  .feedback-dialog {
+    font-size: 1rem;
+  }
+  .feedback-dialog__icon {
+    display: block;
+  }
+  .feedback-dialog__footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+  }
+  .feedback-dialog__button {
+    margin-bottom: 0;
+    margin-left: 1rem;
   }
 }
