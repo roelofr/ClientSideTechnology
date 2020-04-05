@@ -6,15 +6,14 @@ const order = require('gulp-order')
 const uglify = require('gulp-uglify')
 const sourcemaps = require('gulp-sourcemaps')
 
-exports.js = function ({ voornaam, files, publicDir, fileOrder }) {
-  const { js: jsFiles } = files
+exports.vendor = function ({ voornaam, files, publicDir, fileOrder }) {
+  const { vendor: vendorFiles } = files
   return function () {
-    console.log(`Taak js wordt uitgevoerd, ${voornaam}!`)
+    console.log(`Taak vendor wordt uitgevoerd, ${voornaam}!`)
 
-    return src(jsFiles)
+    return src(vendorFiles)
       .pipe(sourcemaps.init())
-      .pipe(order(fileOrder, { base: './' }))
-      .pipe(concat('app.min.js'))
+      .pipe(concat('vendor.min.js'))
       .pipe(babel({
         presets: ['@babel/preset-env']
       }))

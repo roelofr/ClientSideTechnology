@@ -13,6 +13,10 @@ module.exports = {
     ],
     html: [
       'index.html'
+    ],
+    vendor: [
+      'vendor/*.js',
+      'vendor/**/*.js'
     ]
   },
   fileOrder: [
