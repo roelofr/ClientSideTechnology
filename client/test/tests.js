@@ -26,6 +26,7 @@ describe('Test feedback widget', function () {
   const widgetSelector = 'feedback-widget'
   const widgetElement = $(`#${widgetSelector}`)
   const widgetNode = widgetElement.get(0)
+  const widgetTextNode = $('.feedback-dialog__body', widgetNode).get(0)
   const widget = new FeedbackWidget(widgetSelector)
 
   // Expect a widget to exist
@@ -41,17 +42,17 @@ describe('Test feedback widget', function () {
   // Expect a widget to show
   it('Expects to be hidden on hide()', function () {
     widget.hide()
-    expect(widgetNode.style.display).toBe('none')
+    expect(widgetNode.classList).toContain('hidden')
   })
 
   it('Expects to be visible on show()', function () {
     widget.show()
-    expect(widgetNode.style.display).toBe('block')
+    expect(widgetNode.classList).not.toContain('hidden')
   })
 
   it('Contains the message provided', function () {
     widget.show('the message provided', 'success')
-    expect(widgetNode.textContent).toBe('the message provided')
+    expect(widgetTextNode.textContent).toBe('the message provided')
   })
 
   it('Turns green when shown succesful', function () {
@@ -69,10 +70,10 @@ describe('Test feedback widget', function () {
       widget.show(`Loop message ${index}`, index % 2 ? 'success' : 'fail')
     }
     widget.history()
-    expect(widgetNode.textContent).toContain('success - Loop message 1')
-    expect(widgetNode.textContent).toContain('error - Loop message 4')
-    expect(widgetNode.textContent).toContain('error - Loop message 10')
-    expect(widgetNode.textContent).not.toContain('error - Loop message 12')
+    expect(widgetTextNode.textContent).toContain('success - Loop message 1')
+    expect(widgetTextNode.textContent).toContain('error - Loop message 4')
+    expect(widgetTextNode.textContent).toContain('error - Loop message 10')
+    expect(widgetTextNode.textContent).not.toContain('error - Loop message 12')
   })
 })
 

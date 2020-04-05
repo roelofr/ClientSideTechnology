@@ -25,6 +25,11 @@ class FeedbackWidget {
   }
 
   show (message, type) {
+    // Check for existing callbacks
+    if (this._closeCallbacks.length !== 0) {
+      this.hide(false)
+    }
+
     // Normalize
     message = message || '(no message)'
     type = (type === 'success' ? 'success' : 'error')

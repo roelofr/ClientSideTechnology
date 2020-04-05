@@ -26,8 +26,27 @@
   <!-- Test canvas -->
   <div style="display: none;">
     <!-- Dialog -->
-    <div id="feedback-widget" class="alert alert-success" role="alert">
-      <p>Veel succes met deze module!</p>
+    <div id="feedback-widget" class="feedback-dialog hidden" role="alert">
+      <!-- Main -->
+      <div class="feedback-dialog__main">
+        <!-- Icon -->
+        <figure class="feedback-dialog__icon">
+          <img data-content="icon" class="feedback-dialig__icon-img" src="images/check-solid.svg" />
+        </figure>
+
+        <!-- Message -->
+        <div class="feedback-dialog__body" data-content="message">
+          <p class="feedback-dialog__body-line">Mike wil deelnemen aan jouw spel. Geef akkoord.</p>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="feedback-dialog__footer">
+        <button class="feedback-dialog__button feedback-dialog__button--secondary" data-action="result"
+          data-result="cancel">Weigeren</button>
+        <button class="feedback-dialog__button feedback-dialog__button--primary" data-action="result"
+          data-result="continue">Accepteren</button>
+      </div>
     </div>
   </div>
 
