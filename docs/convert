@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Convert script by Roelof
+# Licensed under the Academic Free License version 3.0
+
+function convert_to_safe_file() {
+    FILE="$1"
+    FILEPATH="$( cd $( dirname "${FILE}" ) && pwd -L )"
+    FILENAME="$( basename "$FILE" )"
+    SAFEFILE="$(
+        echo "${FILENAME%.*}" |\
+        iconv -f UTF8 -t ASCII//TRANSLIT |\
+        sed -e 's/[^[:alnum:]]/-/g' |\
+        tr -s '-' |\
+        tr A-Z a-z
+    ).${FILENAME##*.}"
+
+    # Check if file is safe
+    if [ "$FILENAME" = "$SAFEFILE" ]; then
+        return
+    fi
+
+    # Move file
+    echo "$FILENAME → $SAFEFILE (sluggify)"
+    mv "$FILEPATH/$FILENAME" "$FILEPATH/$SAFEFILE"
+}
+
+# Convert files to safe filenames
+for FILE in ./*/*.md; do
+    convert_to_safe_file "$FILE"
+done
