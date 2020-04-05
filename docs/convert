@@ -25,7 +25,32 @@ function convert_to_safe_file() {
     mv "$FILEPATH/$FILENAME" "$FILEPATH/$SAFEFILE"
 }
 
+function convert_to_pdf() {
+    FILE="$1"
+    FILEPATH="$( cd $( dirname "${FILE}" ) && pwd -L )"
+    FILENAME="$( basename "$FILE" )"
+    OUTFILE="${FILENAME%.*}.pdf"
+
+    # Move to dir
+    pushd "$FILEPATH" > /dev/null
+
+    # Output PDF
+    echo "$FILENAME → $OUTFILE (convert to PDF)"
+    pandoc -s -o "$OUTFILE" "$FILENAME"
+
+    # Go back
+    popd > /dev/null
+}
+
 # Convert files to safe filenames
 for FILE in ./*/*.md; do
     convert_to_safe_file "$FILE"
+done
+
+# Sync FS
+sync
+
+# Convert files to PDF
+for FILE in ./*/*.md; do
+    convert_to_pdf "$FILE"
 done
