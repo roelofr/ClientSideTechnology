@@ -10,6 +10,9 @@ module.exports = {
     sass: [
       'css/*.scss',
       'css/**/*.scss'
+    ],
+    html: [
+      'index.html'
     ]
   },
   fileOrder: [
