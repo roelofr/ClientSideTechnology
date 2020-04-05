@@ -73,7 +73,7 @@ Game.Reversi = (function () {
   const init = function () {
     // Find grid
     let currentRow = 0
-    const getClickCallback = (x, y) => (() => showFiche(x, y, 'light'))
+    const getClickCallback = (x, y) => () => showFiche(x, y, 'light')
     $('.board > .board__row').each((index, row) => {
       let currentCell = 0
       $('.board__cell', row).each((index, cell) => {
@@ -197,7 +197,6 @@ Game.Model = (function () {
       })
   }
 
-
   const getWeather = function (city) {
     // Build URL safely
     const url = new URL('https://api.openweathermap.org/data/2.5/weather')
@@ -219,17 +218,17 @@ Game.Model = (function () {
   return { init, getWeather, getGameState }
 })()
 
-Game.Stats = (function () {
+Game.Stats = function () {
   const configMap = {
 
-  };
+  }
 
   const init = () => { }
 
   return { init }
-})
+}
 
 // Automagically init
 $().ready(() => {
-  Game.Reversi.init();
+  Game.Reversi.init()
 })

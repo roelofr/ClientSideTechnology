@@ -12,15 +12,15 @@ class FeedbackWidget {
     return this._elementId
   }
 
-  get element() {
+  get element () {
     return this._element
   }
 
-  get textElement() {
+  get textElement () {
     return this._textElement
   }
 
-  addCloseCallback(method) {
+  addCloseCallback (method) {
     this._closeCallbacks.push(method)
   }
 
@@ -58,7 +58,7 @@ class FeedbackWidget {
     const shakeNode = this.element.find('[data-action="result"][data-result="continue"]').eq(0)
 
     // Start a timeout to shake
-    let timeoutShake = setInterval(() => {
+    const timeoutShake = setInterval(() => {
       shakeNode.addClass('feedback-dialog__button--shake')
 
       // Start a timeout to clear the shake. No need to worry about
