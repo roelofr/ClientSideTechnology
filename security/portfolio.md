@@ -8,7 +8,49 @@ date: Feb 14, 2019
 
 ## Google Dorks
 
+Time to get your "hackerman" on by finding exposed documents on the World Wide Web, by using Google.
 
+### Webcam
+
+First off, let's get some webcams. They're notorious for exposing themselves on the internet, and it took me very little time to find one.
+The first result I got was fairly juicy, as looking up the IP address pointed out that this webcam found, is actually located
+on the San Diego State University campus, in San Diego, California, US.
+
+Dork used: `inurl:/live.htm intext:"M-JPEG"|"System Log"|"Camera-1"|"View Control"`
+
+Result: A webcam, shown below.
+
+![http://130.191.35.82/live.htm](images/dorks-webcam.jpg)
+
+### Configurations
+
+Another funny one to find is settings files. Firstly, I tried looking for `.env` files, but they're hard to come by. What, however, is more common is
+a `settings.yml`, and looking for indexes containing that, resulted in a very juicy `configuration.yml` for `https://typology.online/`, which seems to
+have a misconfigured webroot.
+
+The credentials found granted access to the database (which is *not* protected by a firewall), but the request was rejected by hostname verification by
+MariaDB.
+
+Dork used: `intitle:"index of" "settings.yml"`
+
+Result: A misconfigured webserver with production credentials for their MariaDB database.
+
+!["Index of /config/" showing the redacted contents of the config file](images/dorks-config.jpg)
+
+### Printers
+
+You can send your friends a Rickroll by just linking them an undercover video, but wouldn't it be more fun to Rickroll a random
+exposed printer? Well, let's do just that.
+
+Dork used: `intitle:"Printer Status" AND inurl:"/PrinterStatus.html"`
+
+Result: an exposed printer, which even allowed me to print. It's again a university in the US (University of Arizona).
+
+![The print page](images/dorks-printer.jpg)
+
+Don't worry, I printed them a message.
+
+![Sorry, not sorry](images/dorks-printer-2.jpg)
 
 ## Data leaks
 
