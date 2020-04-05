@@ -12,7 +12,7 @@ module.exports = {
       'css/**/*.scss'
     ],
     html: [
-      'index.html'
+      'html/index.html'
     ],
     vendor: [
       'vendor/*.js',
