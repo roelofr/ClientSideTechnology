@@ -1,0 +1,83 @@
+.board {
+  margin: 0 auto;
+  display: inline-flex;
+  flex-flow: column nowrap;
+
+  // Background
+  background:
+    radial-gradient(circle, transparent 20%, #FBD38D 20%, #FBD38D 80%, transparent 80%, transparent),
+    radial-gradient(circle, transparent 20%, #FBD38D 20%, #FBD38D 80%, transparent 80%, transparent) 50px 50px,
+    linear-gradient(F6AD55 8px, transparent 8px) 0 -4px,
+    linear-gradient(90deg, F6AD55 8px, transparent 8px) -4px 0;
+  background-color: #FBD38D;
+  background-size:100px 100px, 100px 100px, 50px 50px, 50px 50px;
+  padding: 0.25rem;
+}
+
+.board__row {
+  margin-bottom: 0.125rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: stretch;
+}
+
+.board__row:last-child {
+  margin-bottom: 0;
+}
+
+.board__cell {
+  height: 4rem;
+  width: 4rem;
+  flex: 0 0 4rem;
+  margin-right: 0.125rem;
+
+  // Fill tile
+  background: #f0f0f0;
+}
+
+.board__cell:last-child {
+  margin-right: 0;
+}
+
+.board__chip {
+  width: 3rem;
+  height: 3rem;
+  margin: 0.5rem;
+  border-radius: 1.5rem;
+  background-color: rebeccapurple;
+  animation: fiche-appear 800ms ease-out;
+}
+
+.board__chip--light {
+  background-color: #E2E8F0;
+  box-shadow:
+    0 -2px 0 3px #CBD5E0 inset,
+    0 15px rgba(#fff, 0.25) inset
+}
+
+.board__chip--dark {
+  background-color: #2D3748;
+  box-shadow:
+    0 -2px 0 3px #4A5568 inset,
+    0 15px rgba(#fff, 0.25) inset
+}
+
+@keyframes fiche-appear {
+  from {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+  20% {
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.025);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

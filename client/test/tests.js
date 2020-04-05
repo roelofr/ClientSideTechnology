@@ -126,3 +126,34 @@ describe('Test Model model on Game', function () {
     await expectAsync(Game.Model.getWeather('Verweggistan, GB')).toBeRejected()
   })
 })
+
+// Board test
+describe('Test Reversi fiche system', function () {
+  it('has a \'showFiche\' method', function () {
+    expect(Game.Reversi).toBeDefined()
+    expect(Game.Reversi.showFiche).toBeDefined()
+    expect(typeof Game.Reversi.showFiche).toBe('function')
+  })
+  it('handles click events', function () {
+    // get item
+    const node = $('#board-click-target')
+    expect(node.children().length === 0)
+
+    // Click it
+    node.click()
+
+    // Check if a tile was added
+    expect(node.children().length === 1)
+  })
+  it('handles direct events', function () {
+    // get item
+    const node = $('#board-target')
+    expect(node.children().length === 0)
+
+    // Click it
+    Game.Reversi.showFiche(node.data('x'), node.data('y'))
+
+    // Check if a tile was added
+    expect(node.children().length === 1)
+  })
+})

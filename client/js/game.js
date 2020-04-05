@@ -38,14 +38,63 @@ const Game = (function (url) {
 Game.Reversi = (function () {
   // unused
   const configMap = {}
+  const gridElements = new Map()
+
+  const buildIndex = (x, y) => `${x},${y}`
+
+  const showFiche = (x, y, color) => {
+    if (!['dark', 'light'].includes(color)) {
+      console.error('Invalid color %s, should be dark or light', color)
+      return
+    }
+
+    const index = buildIndex(x, y)
+    if (!gridElements.has(index)) {
+      alert(`Element not found at (${x}, ${y})`)
+      return
+    }
+
+    // get cell
+    const elem = gridElements.get(index)
+
+    // We always clear the contents, inspired by:
+    // https://youtu.be/7UbiOKdZmYY
+
+    // Remove contents
+    elem.children().remove()
+
+    // Add chip
+    elem.append(
+      $('<div class="board__chip" />').addClass(`board__chip--${color}`)
+    )
+  }
 
   // Private function init
   const init = function () {
-    // Do stuff
+    // Find grid
+    let currentRow = 0
+    const getClickCallback = (x, y) => (() => showFiche(x, y, 'light'))
+    $('.board > .board__row').each((index, row) => {
+      let currentCell = 0
+      $('.board__cell', row).each((index, cell) => {
+        const cellJq = $(cell)
+        // Add to list
+        gridElements.set(buildIndex(currentRow, currentCell), cellJq)
+
+        // Add click handler
+        cellJq.on('click', getClickCallback(currentRow, currentCell))
+
+        // Increment cell
+        currentCell++
+      })
+
+      // Increment row counter
+      currentRow++
+    })
   }
 
   // Waarde/object geretourneerd aan de outer scope
-  return { init }
+  return { init, showFiche }
 })()
 
 // Add 'data' module
@@ -178,4 +227,9 @@ Game.Stats = (function () {
   const init = () => { }
 
   return { init }
+})
+
+// Automagically init
+$().ready(() => {
+  Game.Reversi.init();
 })
