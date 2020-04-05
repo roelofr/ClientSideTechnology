@@ -53,23 +53,31 @@ class FeedbackWidget {
     const shakeNode = this.element.find('[data-action="result"][data-result="continue"]').eq(0)
 
     // Start a timeout to shake
-    let timeoutShake = setTimeout(() => {
+    let timeoutShake = setInterval(() => {
       shakeNode.addClass('feedback-dialog__button--shake')
-    }, 5 * 1000)
+
+      // Start a timeout to clear the shake. No need to worry about
+      // this when removing, as we're
+      setTimeout(
+        () => shakeNode.removeClass('feedback-dialog__button--shake'),
+        1000
+      )
+    }, 2 * 1000)
 
     // Close callback
     this.addCloseCallback(() => {
       shakeNode.removeClass('feedback-dialog__button--shake')
-      clearTimeout(timeoutShake)
+      clearInterval(timeoutShake)
     })
   }
 
-  hide () {
+  hide (result) {
+    result = result === 'continue'
     console.log('hideing %s', this.elementId)
     this.element.addClass('hidden')
 
     // Invoke callbacks
-    this._closeCallbacks.forEach(method => method(this))
+    this._closeCallbacks.forEach(method => method(result, this))
     this._closeCallbacks = []
   }
 

@@ -6,12 +6,18 @@ module.exports = {
     js: [
       'js/**/*.js',
       'js/*.js'
+    ],
+    sass: [
+      'css/*.scss',
+      'css/**/*.scss'
     ]
   },
   fileOrder: [
     'js/*Widget.js',
     'js/game.js',
-    'js/**/*.js'
+    'js/**/*.js',
+    'css/body.scss',
+    'css/**/*.scss'
   ],
   voornaam: 'Roelof'
 }
