@@ -178,4 +178,30 @@ describe('Test template engine', function () {
     expect(Handlebars.partials.fiche({ light: false })).toContain('--dark')
     expect(Handlebars.partials.fiche({})).toContain('--dark')
   })
+
+  it('can render a game board', function () {
+    expect(spa_templates.templates).toBeDefined()
+    expect(spa_templates.templates.game).toBeDefined()
+    expect(spa_templates.templates.game.board).toBeDefined()
+
+    const templateDefault = spa_templates.templates.game.board()
+    expect(templateDefault).toBeTruthy()
+    expect(templateDefault).toContain('board__row')
+    expect(templateDefault).toContain('board__cell')
+
+    // test size
+    const templateRows = templateDefault.split(/board__row/g).length - 1
+    const templateCols = templateDefault.split(/board__cell/g).length - 1
+    const expectedSize = 4
+    expect(templateRows).toBe(expectedSize)
+    expect(templateCols).toBe(expectedSize * expectedSize)
+  })
+})
+
+describe('Test Game\'s template engine', function () {
+  it('has a `Game.Template` with proper methods', function () {
+    expect(Game.Template).toBeDefined()
+    expect(Game.Template.getTemplate).toBeDefined()
+    expect(Game.Template.parseTemplate).toBeDefined()
+  })
 })
