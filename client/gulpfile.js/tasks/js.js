@@ -19,7 +19,7 @@ exports.js = function ({ voornaam, files, publicDir, fileOrder }) {
         presets: ['@babel/preset-env']
       }))
       .pipe(uglify({ compress: true }))
-      .pipe(sourcemaps.write('../maps'))
+      .pipe(sourcemaps.write('./dist/maps'))
       .pipe(dest('./dist/js'))
       .pipe(dest(`${publicDir}/js`))
 }

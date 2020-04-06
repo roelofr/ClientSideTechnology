@@ -34,13 +34,14 @@ const watchFiles = () => {
   watch(config.files.html, series(html))
   watch(config.files.handlebars.watch, series(templates))
 }
+watchFiles.displayName = 'watch'
 
 // Build job
 const build = parallel(html, js, css, vendor, templates)
 
 // Export hello as default
 exports.default = series(hello, build)
-exports.start = series(build, watch)
+exports.start = series(hello, build, watchFiles)
 
 // Export parts
 exports.css = css

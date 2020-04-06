@@ -204,4 +204,15 @@ describe('Test Game\'s template engine', function () {
     expect(Game.Template.getTemplate).toBeDefined()
     expect(Game.Template.parseTemplate).toBeDefined()
   })
+
+  it('can render templates via `Game.Template.parseTemplate`', function () {
+    expect(Game.Template).toBeDefined()
+    expect(Game.Template.parseTemplate).toBeDefined()
+
+    const template = Game.Template.parseTemplate('templates.game.board', {})
+    expect(template).toBeTruthy()
+    expect(template).toContain('board__row')
+    expect(template).toContain('board__cell')
+  })
+
 })
