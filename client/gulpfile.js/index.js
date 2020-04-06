@@ -32,6 +32,7 @@ const watchFiles = () => {
   watch(config.files.sass, series(css))
   watch(config.files.js, series(js))
   watch(config.files.html, series(html))
+  watch(config.files.handlebars.watch, series(templates))
 }
 
 // Build job

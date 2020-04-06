@@ -163,11 +163,19 @@ describe('Test template engine', function () {
     expect(spa_templates).toBeDefined()
   })
 
-  it('can build templates', function() {
+  it('can build templates', function () {
     expect(spa_templates.templates).toBeDefined()
     expect(spa_templates.templates.feedbackWidget).toBeDefined()
     expect(spa_templates.templates.feedbackWidget.body({
       bericht: 'Het is een mooie dag'
     })).toContain('Het is een mooie dag')
+  })
+
+  it('can use fiche template', function () {
+    expect(Handlebars.partials).toBeDefined()
+    expect(Handlebars.partials.fiche).toBeDefined()
+    expect(Handlebars.partials.fiche({ light: true })).toContain('--light')
+    expect(Handlebars.partials.fiche({ light: false })).toContain('--dark')
+    expect(Handlebars.partials.fiche({})).toContain('--dark')
   })
 })

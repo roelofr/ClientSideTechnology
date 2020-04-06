@@ -14,9 +14,18 @@ module.exports = {
     html: [
       'html/index.html'
     ],
-    templates: [
-      'templates/**/*.hbs'
-    ],
+    handlebars: {
+      watch: [
+        'templates/**/*.hbs',
+      ],
+      templates: [
+        'templates/**/*.hbs',
+        '!templates/**/_*.hbs'
+      ],
+      partials: [
+        'templates/**/_*.hbs'
+      ]
+    },
     vendor: [
       'vendor/*.js',
       'vendor/**/*.js'

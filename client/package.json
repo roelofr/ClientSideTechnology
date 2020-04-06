@@ -31,7 +31,8 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "gulp-wrap": "^0.15.0",
-    "handlebars": "^4.7.6"
+    "handlebars": "^4.7.6",
+    "merge-stream": "^2.0.0"
   },
   "scripts": {
     "lint": "eslint js/ test/",
