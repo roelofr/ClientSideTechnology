@@ -122,6 +122,20 @@ Game.Data = (function (jQuery) {
           id: 2743476,
           name: 'Gemeente Zwolle'
         }
+      },
+      {
+        url: '/jokes/ten',
+        data: [
+          { "id": 134, "type": "general", "setup": "How does a dyslexic poet write?", "punchline": "Inverse." },
+          { "id": 117, "type": "general", "setup": "How come the stadium got hot after the game?", "punchline": "Because all of the fans left." },
+          { "id": 154, "type": "general", "setup": "Want to hear a joke about construction?", "punchline": "Nah, I'm still working on it." },
+          { "id": 60, "type": "programming", "setup": "A user interface is like a joke.", "punchline": "If you have to explain it then it is not that good." },
+          { "id": 316, "type": "general", "setup": "Why are mummys scared of vacation?", "punchline": "They're afraid to unwind." },
+          { "id": 346, "type": "general", "setup": "Why did the octopus beat the shark in a fight?", "punchline": "Because it was well armed." },
+          { "id": 193, "type": "general", "setup": "What did the Red light say to the Green light?", "punchline": "Don't look at me I'm changing!" },
+          { "id": 264, "type": "general", "setup": "What kind of award did the dentist receive?", "punchline": "A little plaque." },
+          { "id": 319, "type": "general", "setup": "Why are skeletons so calm?", "punchline": "Because nothing gets under their skin." },
+          { "id": 50, "type": "general", "setup": "What do you call a factory that sells passable products?", "punchline": "A satisfactory" }]
       }
     ]
   }
@@ -150,6 +164,7 @@ Game.Data = (function (jQuery) {
       }
 
       // Reject if no match was found
+      console.error('Failed to find cached request for %o', url);
       reject(Error('Service not available'))
     })
   }
@@ -254,7 +269,69 @@ Game.Template = (function () {
   return { getTemplate, parseTemplate }
 })()
 
+Game.API = (function (jQuery) {
+  const JOKES_URL = 'http://official-joke-api.appspot.com/jokes/ten'
+
+  let fetchedJokes = []
+  let jokeTarget = null
+
+  const init = () => {
+    jQuery('button[data-action="joke"]').on('click', showJoke)
+    jokeTarget = jQuery('div[data-content="joke"]').eq(0)
+
+    Game.Data.get(JOKES_URL).then(data => {
+      // Data should be an array
+      if (!Array.isArray(data)) {
+        console.error("Data is not an array!", data)
+        return
+      }
+
+      // Iterate data
+      data.forEach((joke, index) => {
+        if (joke.setup && joke.punchline) {
+          fetchedJokes[fetchedJokes.length] = {
+            setup: joke.setup,
+            punchline: joke.punchline
+          }
+          return
+        }
+
+        // Report failure
+        console.warn("Invalid joke %o at index %o", joke, index)
+      });
+    })
+  }
+
+  const showJoke = function() {
+    const joke = getJoke()
+    renderJoke(joke)
+  }
+
+  /**
+   * Returns a joke
+   */
+  const getJoke = function () {
+    let joke = null
+    if (fetchedJokes) {
+      const jokeIndex = Math.round(Math.random() * (fetchedJokes.length - 1))
+      joke = fetchedJokes[jokeIndex]
+    }
+
+    return joke || {
+      setup: "A user interface is like a joke.",
+      punchline: "If you have to explain it then it is not that good."
+    }
+  }
+
+  const renderJoke = function (data) {
+    jokeTarget.html(Game.Template.parseTemplate('templates.game.joke', data))
+  }
+
+  return { init, getJoke }
+})(jQuery)
+
 // Automagically init
 $().ready(() => {
   Game.Reversi.init()
+  Game.API.init()
 })

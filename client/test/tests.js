@@ -214,5 +214,25 @@ describe('Test Game\'s template engine', function () {
     expect(template).toContain('board__row')
     expect(template).toContain('board__cell')
   })
+})
 
+describe('Test Game\'s comedy engine', function () {
+  it('has a `Game.API` with proper methods', function () {
+    expect(Game.API).toBeDefined()
+    expect(Game.API.init).toBeDefined()
+    expect(Game.API.getJoke).toBeDefined()
+  })
+
+  it('can return a joke via `getJoke`', function () {
+    expect(Game.API).toBeDefined()
+    expect(Game.API.getJoke).toBeDefined()
+
+    const joke = Game.API.getJoke()
+    expect(joke).toBeTruthy()
+    expect(joke.setup).toBeDefined()
+    expect(joke.punchline).toBeDefined()
+
+    expect(joke.setup).toBeTruthy()
+    expect(joke.punchline).toBeTruthy()
+  })
 })
