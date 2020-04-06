@@ -157,3 +157,17 @@ describe('Test Reversi fiche system', function () {
     expect(node.children().length).toBe(1)
   })
 })
+
+describe('Test template engine', function () {
+  it('tests if a `spa_templates` variable exists', function () {
+    expect(spa_templates).toBeDefined()
+  })
+
+  it('can build templates', function() {
+    expect(spa_templates.templates).toBeDefined()
+    expect(spa_templates.templates.feedbackWidget).toBeDefined()
+    expect(spa_templates.templates.feedbackWidget.body({
+      bericht: 'Het is een mooie dag'
+    })).toContain('Het is een mooie dag')
+  })
+})

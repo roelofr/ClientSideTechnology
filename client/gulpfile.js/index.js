@@ -13,6 +13,10 @@ html.displayName = 'html'
 const js = require('./tasks/js').js(config)
 js.displayName = 'js'
 
+// Templates task
+const templates = require('./tasks/templates').templates(config)
+templates.displayName = 'templates'
+
 // Vendor task
 const vendor = require('./tasks/vendor').vendor(config)
 vendor.displayName = 'vendor'
@@ -31,7 +35,7 @@ const watchFiles = () => {
 }
 
 // Build job
-const build = parallel(html, js, css, vendor)
+const build = parallel(html, js, css, vendor, templates)
 
 // Export hello as default
 exports.default = series(hello, build)
@@ -39,6 +43,7 @@ exports.start = series(build, watch)
 
 // Export parts
 exports.css = css
+exports.templates = templates
 exports.html = html
 exports.js = js
 exports.vendor = vendor

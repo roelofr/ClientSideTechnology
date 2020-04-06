@@ -14,6 +14,9 @@ module.exports = {
     html: [
       'html/index.html'
     ],
+    templates: [
+      'templates/**/*.hbs'
+    ],
     vendor: [
       'vendor/*.js',
       'vendor/**/*.js'
