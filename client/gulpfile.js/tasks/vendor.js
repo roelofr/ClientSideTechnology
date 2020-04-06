@@ -14,9 +14,6 @@ exports.vendor = function ({ voornaam, files, publicDir, fileOrder }) {
     return src(vendorFiles)
       .pipe(sourcemaps.init())
       .pipe(concat('vendor.min.js'))
-      .pipe(babel({
-        presets: ['@babel/preset-env']
-      }))
       .pipe(uglify({ compress: true }))
       .pipe(sourcemaps.write('../maps'))
       .pipe(dest('./dist/js'))

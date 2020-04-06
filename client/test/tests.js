@@ -137,23 +137,23 @@ describe('Test Reversi fiche system', function () {
   it('handles click events', function () {
     // get item
     const node = $('#board-click-target')
-    expect(node.children().length === 0)
+    expect(node.children().length).toBe(0)
 
     // Click it
     node.click()
 
     // Check if a tile was added
-    expect(node.children().length === 1)
+    expect(node.children().length).toBe(1)
   })
   it('handles direct events', function () {
     // get item
     const node = $('#board-target')
-    expect(node.children().length === 0)
+    expect(node.children().length).toBe(0)
 
     // Click it
-    Game.Reversi.showFiche(node.data('x'), node.data('y'))
+    Game.Reversi.showFiche(node.data('x'), node.data('y'), 'dark')
 
     // Check if a tile was added
-    expect(node.children().length === 1)
+    expect(node.children().length).toBe(1)
   })
 })
