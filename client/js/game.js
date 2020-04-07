@@ -1,3 +1,4 @@
+/* global Chart */
 const apiUrl = 'url/super/duper/game'
 
 const Game = (function (url) {
@@ -233,15 +234,43 @@ Game.Model = (function () {
   return { init, getWeather, getGameState }
 })()
 
-Game.Stats = function () {
+// Stats
+Game.Stats = (function (ChartJs) {
   const configMap = {
 
   }
 
-  const init = () => { }
+  const init = function () {
+    const ctx = document.querySelector('canvas[data-content="chart"]').getContext('2d')
+    if (!ctx) {
+      console.error('Cannot find canvas to paint chart in')
+      return
+    }
+
+    const chart = new ChartJs(ctx, {
+      // The type of chart we want to create
+      type: 'line',
+
+      // The data for our dataset
+      data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+          label: 'My First dataset',
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          data: [0, 10, 5, 2, 20, 30, 45]
+        }]
+      },
+
+      // Configuration options go here
+      options: {}
+    })
+
+    // TODO something with the chart
+  }
 
   return { init }
-}
+})(Chart)
 
 Game.Template = (function () {
   /**
@@ -334,4 +363,5 @@ Game.API = (function (jQuery) {
 $().ready(() => {
   Game.Reversi.init()
   Game.API.init()
+  Game.Stats.init()
 })
