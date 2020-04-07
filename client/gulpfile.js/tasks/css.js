@@ -11,7 +11,7 @@ exports.css = function ({ voornaam, files, publicDir }) {
   return function () {
     console.log(`Taak css wordt uitgevoerd, ${voornaam}!`)
 
-    return src(sassFiles)
+    return src(sassFiles, { sourcemaps: true })
       // convert sass to css
       .pipe(sass().on('error', sass.logError))
 
@@ -31,7 +31,7 @@ exports.css = function ({ voornaam, files, publicDir }) {
 
       // write as minified
       .pipe(rename('style.min.css'))
-      .pipe(dest('./dist/css'))
-      .pipe(dest(`${publicDir}/css`))
+      .pipe(dest('./dist/css', { sourcemaps: true }))
+      .pipe(dest(`${publicDir}/css`, { sourcemaps: true }))
   }
 }
