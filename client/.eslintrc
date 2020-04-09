@@ -8,7 +8,9 @@
         "jasmine": true
     },
     "globals": {
-        "Game": "readonly"
+        "Game": "readonly",
+        "spa_templates": "readonly",
+        "Handlebars": "readonly"
     },
     "rules": {
         "no-prototype-builtins": "off"
