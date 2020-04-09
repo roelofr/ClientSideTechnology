@@ -22,7 +22,7 @@ exports.html = function ({ voornaam, files, publicDir }) {
         path.basename = 'index'
         path.extname = ".html"
       }))
-      .pipe(sourcemaps.write('../maps'))
+      .pipe(sourcemaps.write('./maps'))
       .pipe(dest('./dist'))
       .pipe(dest(publicDir))
   }
