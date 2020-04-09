@@ -7,6 +7,9 @@
         "jquery": true,
         "jasmine": true
     },
+    "globals": {
+        "Game": "readonly"
+    },
     "rules": {
         "no-prototype-builtins": "off"
     },

@@ -1,0 +1,9 @@
+<div class="board__row">
+    {{#times 6}}
+    <div class="board__cell">
+        {{#randomif}}
+            {{> fiche light=true }}
+        {{/randomif}}
+    </div>
+    {{/times}}
+</div>

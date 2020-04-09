@@ -136,22 +136,54 @@ describe('Test Reversi fiche system', function () {
   })
   it('handles click events', function () {
     // get item
-    const node = $('#board-click-target')
+    const node = $('#board-game .board__cell').eq(2)
+    expect(node).toBeDefined()
+    expect(node.length).toBe(1)
+
+    // esnure node is empty
+    node.children().remove()
     expect(node.children().length).toBe(0)
 
     // Click it
     node.click()
 
-    // Check if a tile was added
-    expect(node.children().length).toBe(1)
+    // Check if a chip was added
+    let childNode = node.children().eq(0)
+    expect(childNode.length).toBe(1)
+
+    expect(childNode.hasClass('board__chip--light')).toBe(true)
+    expect(childNode.hasClass('board__chip--dark')).toBe(false)
+
+    // Click it again
+    node.click()
+
+    // Check if the chip persisted
+    childNode = node.children().eq(0)
+    expect(childNode.length).toBe(1)
+    expect(childNode.hasClass('board__chip--light')).toBe(false)
+    expect(childNode.hasClass('board__chip--dark')).toBe(true)
+
+    // Click it ONE LAST TIME
+    node.click()
+
+    // Check if the chip was removed
+    expect(node.children().length).toBe(0)
   })
+
   it('handles direct events', function () {
     // get item
-    const node = $('#board-target')
+    const coords = { x: 3, y: 4 }
+    const boardRow = $('#board-game .board__row').eq(coords.y)
+    const node = $('.board__cell', boardRow).eq(coords.x)
+    expect(node).toBeDefined()
+    expect(node.length).toBe(1)
+
+    // Ensure empty
+    node.children().remove()
     expect(node.children().length).toBe(0)
 
     // Click it
-    Game.Reversi.showFiche(node.data('x'), node.data('y'), 'dark')
+    Game.Reversi.showFiche(coords.x, coords.y, 'dark')
 
     // Check if a tile was added
     expect(node.children().length).toBe(1)
@@ -163,7 +195,7 @@ describe('Test template engine', function () {
     expect(spa_templates).toBeDefined()
   })
 
-  it('can build templates', function () {
+  it('has required feedbackWidget template', function () {
     expect(spa_templates.templates).toBeDefined()
     expect(spa_templates.templates.feedbackWidget).toBeDefined()
     expect(spa_templates.templates.feedbackWidget.body({
@@ -171,7 +203,7 @@ describe('Test template engine', function () {
     })).toContain('Het is een mooie dag')
   })
 
-  it('can use fiche template', function () {
+  it('has required fiche partial', function () {
     expect(Handlebars.partials).toBeDefined()
     expect(Handlebars.partials.fiche).toBeDefined()
     expect(Handlebars.partials.fiche({ light: true })).toContain('--light')
@@ -192,9 +224,16 @@ describe('Test template engine', function () {
     // test size
     const templateRows = templateDefault.split(/board__row/g).length - 1
     const templateCols = templateDefault.split(/board__cell/g).length - 1
-    const expectedSize = 4
+    const expectedSize = 6
     expect(templateRows).toBe(expectedSize)
     expect(templateCols).toBe(expectedSize * expectedSize)
+  })
+
+  it('has required stats template', function () {
+    expect(spa_templates.templates).toBeDefined()
+    expect(spa_templates.templates.game).toBeDefined()
+    expect(spa_templates.templates.game.stats).toBeDefined()
+    expect(typeof spa_templates.templates.game.stats).toBe('function')
   })
 })
 

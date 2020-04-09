@@ -5,7 +5,7 @@ module.exports = {
   files: {
     js: [
       'js/**/*.js',
-      'js/*.js'
+      'js/*.js',
     ],
     sass: [
       'css/*.scss',
@@ -34,7 +34,9 @@ module.exports = {
   fileOrder: [
     'js/*Widget.js',
     'js/game.js',
+    'js/game-*.js',
     'js/**/*.js',
+    'js/hooks.js',
     'css/body.scss',
     'css/**/*.scss'
   ],

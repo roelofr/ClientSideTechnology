@@ -1,0 +1,21 @@
+.game {
+  margin-bottom: 2rem;
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+  &__header-title {
+    line-height: 1;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: normal;
+    font-style: normal;
+    color: #2D3748;
+  }
+  &__board {
+    // noop
+  }
+  &__footer {
+    // noop
+  }
+}
