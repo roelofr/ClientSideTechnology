@@ -28,7 +28,7 @@ window.Game = (function (url) {
 
   const _getCurrentGameState = function () {
     Game.Model.getGameState()
-      .then(value => stateMap.gameState = value)
+      .then(value => (stateMap.gameState = value))
   }
 
   // Waarde/object geretourneerd aan de outer scope

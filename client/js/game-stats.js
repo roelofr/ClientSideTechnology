@@ -1,9 +1,6 @@
 /* global Chart:readonly */
 // Stats
 Game.Stats = (function (jQuery, Chart) {
-  const configMap = {
-  }
-
   /**
    * @var {jQuery}
    */
@@ -17,7 +14,7 @@ Game.Stats = (function (jQuery, Chart) {
   /**
    * @var {Map}
    */
-  let chartStats = new Map()
+  const chartStats = new Map()
 
   /**
    * @var {Chart} chart
@@ -69,7 +66,7 @@ Game.Stats = (function (jQuery, Chart) {
             fill: false,
             borderColor: '#2d3748',
             data: []
-          },
+          }
         ]
       },
 
@@ -108,18 +105,18 @@ Game.Stats = (function (jQuery, Chart) {
   const init = function () {
     displayButton = $('button[data-target="chart"]')
     if (displayButton.length === 0) {
-      console.warn('No display button!');
+      console.warn('No display button!')
       return
     }
 
     chartContainer = $('[data-content="game-stats"]')
     if (chartContainer.length === 0) {
-      console.warn('No chart container!');
+      console.warn('No chart container!')
       displayButton.disable()
       return
     }
 
-    console.log('Got container %o which will show with %o', chartContainer, displayButton);
+    console.log('Got container %o which will show with %o', chartContainer, displayButton)
 
     // Add click listener to button
     displayButton.on('click', renderStats)

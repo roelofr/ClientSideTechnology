@@ -3,10 +3,15 @@
 Game.Reversi = (function () {
   // unused
   const configMap = {}
+
+  // Get a map of x-y coords
   const gridElements = new Map()
+
+  // Keep track of the click-debouncer
   let chartTimeout = null
 
-  const buildIndex = (x, y) => `${x},${y}`
+  // Function to build an index
+  const buildIndex = (x, y) => `${x}×${y}`
 
   const showFiche = (x, y, color) => {
     if (!['dark', 'light', 'auto', null].includes(color)) {
@@ -76,7 +81,7 @@ Game.Reversi = (function () {
     })
 
     // Log
-    console.log('Counted actions, got %d light, %d dark', light, dark);
+    console.log('Counted actions, got %d light, %d dark', light, dark)
 
     // Send stats
     Game.Stats.addMeasure(light, dark)
