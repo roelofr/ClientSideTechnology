@@ -1,0 +1,3 @@
+[submodule "online/smoketest"]
+	path = online/smoketest
+	url = https://gitlab.windesheim.nl/thomas/smoketest.git
