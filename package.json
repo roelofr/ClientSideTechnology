@@ -6,6 +6,7 @@
     "lint": "yarn --cwd client run lint",
     "build": "yarn --cwd client run build",
     "start": "yarn --cwd client run start",
-    "watch": "yarn --cwd client run watch"
+    "watch": "yarn --cwd client run watch",
+    "postinstall": "yarn --cwd client install"
   }
 }
