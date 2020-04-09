@@ -15,6 +15,11 @@ Game.Stats = (function (jQuery, Chart) {
   let chartContainer = null
 
   /**
+   * @var {Map}
+   */
+  let chartStats = new Map()
+
+  /**
    * @var {Chart} chart
    */
   let chart = null
@@ -23,17 +28,21 @@ Game.Stats = (function (jQuery, Chart) {
     // Disable button
     displayButton.attr('disabled', 'disabled').text('Laden...')
 
-    // Make API call
-    Game.Data.get('https://api.exchangeratesapi.io/history?start_at=2020-01-01&end_at=2020-03-01&base=EUR')
-      .then(convertAndApply)
-      .then(() => {
-        displayButton.removeAttr('disabled').text('Toon statistieken')
-      })
+    // Create canvas, if none yet
+    if (!chart) {
+      fillTemplate()
+    }
+
+    // Update graph
+    updateChart()
+
+    // Remove button
+    displayButton.remove()
   }
 
   const fillTemplate = function () {
     // Assign template and find canvas
-    chartContainer.html(Game.template.parseTemplate('templates.game.stats'))
+    chartContainer.html(Game.Template.parseTemplate('templates.game.stats'))
     const canvas = $('canvas', chartContainer).get(0)
     if (!canvas) {
       console.error('Cannot find canvas element in template')
@@ -50,17 +59,17 @@ Game.Stats = (function (jQuery, Chart) {
         labels: [],
         datasets: [
           {
-            label: 'Euro value',
-            backgroundColor: 'rgba(144, 205, 244, 0.25)',
-            borderColor: 'rgb(49, 130, 206)',
+            label: 'Witte fiches',
+            fill: false,
+            borderColor: '#edf2f7',
             data: []
           },
           {
-            label: 'USD value',
-            backgroundColor: 'rgba(254, 178, 178, 0.25)',
-            borderColor: 'rgb(229, 62, 62)',
+            label: 'Zwarte fiches',
+            fill: false,
+            borderColor: '#2d3748',
             data: []
-          }
+          },
         ]
       },
 
@@ -69,85 +78,57 @@ Game.Stats = (function (jQuery, Chart) {
     })
   }
 
-  const convertAndApply = function (data) {
-    // make sure a chart exists
-    if (!chart) {
-      fillTemplate()
-    }
-
+  const updateChart = function () {
     // Stop if no chart is present
     if (!chart) {
-      console.warn('Not updating chart as no chart could be created')
       return
     }
 
     // Format data
     const labels = []
-    const eurData = []
-    const usdData = []
-    for (const date in data) {
-      if (data.hasOwnProperty(date)) {
-        const dateSet = data[date]
-        labels.push(new Date(date))
-        eurData.push(dateSet.EUR)
-        usdData.push(dateSet.USD)
-      }
-    }
+    const lightData = []
+    const darkData = []
+    chartStats.forEach(([light, dark], date) => {
+      labels.push(date.toLocaleTimeString())
+      lightData.push(light)
+      darkData.push(dark)
+    })
 
-    // Assign new data
+    // Assign new labels
     chart.data.labels = labels
-    chart.data.dataset[0].data = eurData
-    chart.data.dataset[1].data = usdData
+    chart.data.datasets[0].data = lightData
+    chart.data.datasets[1].data = darkData
 
     // Update chart
     chart.update({
-      duration: 500
+      duration: 400
     })
   }
 
   const init = function () {
     displayButton = $('button[data-target="chart"]')
     if (displayButton.length === 0) {
+      console.warn('No display button!');
       return
     }
 
     chartContainer = $('[data-content="game-stats"]')
     if (chartContainer.length === 0) {
+      console.warn('No chart container!');
       displayButton.disable()
       return
     }
 
-    const canvas = document.querySelector('canvas[data-content="chart"]')
-    if (!canvas) {
-      console.error('Cannot find canvas to paint chart in')
-      return
-    }
+    console.log('Got container %o which will show with %o', chartContainer, displayButton);
 
     // Add click listener to button
     displayButton.on('click', renderStats)
-
-    const ctx = canvas.getContext('2d')
-    this.chart = new ChartJs(ctx, {
-      // The type of chart we want to create
-      type: 'line',
-
-      // The data for our dataset
-      data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-          label: 'My First dataset',
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [0, 10, 5, 2, 20, 30, 45]
-        }]
-      },
-
-      // Configuration options go here
-      options: {}
-    })
-
-    // TODO something with the chart
   }
 
-  return { init }
+  const addMeasure = function (light, dark) {
+    chartStats.set(new Date(), [light, dark])
+    updateChart()
+  }
+
+  return { init, addMeasure }
 })(jQuery, Chart)

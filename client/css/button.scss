@@ -1,0 +1,39 @@
+@import "base";
+
+.btn {
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-weight: bold;
+  border: 1px solid $color-gray-300;
+  background-color: $color-gray-200;
+
+  &:hover, &:focus {
+    border-color: $color-gray-400;
+    background-color: $color-gray-300;
+  }
+
+  &:active {
+    border-color: $color-gray-500;
+    background-color: $color-gray-400;
+  }
+}
+
+.btn--primary {
+  color: $color-blue-100;
+  border-color: $color-blue-800;
+  background-color: $color-blue-900;
+
+  &:hover, &:focus {
+    color: $color-white;
+    border-color: $color-blue-700;
+    background-color: $color-blue-800;
+  }
+
+  &:active {
+    color: $color-white;
+    border-color: $color-blue-600;
+    background-color: $color-blue-700;
+  }
+}

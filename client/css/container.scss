@@ -1,0 +1,14 @@
+@import "base";
+
+.container {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+@include desktop {
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $desktop-width;
+  }
+}

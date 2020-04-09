@@ -1,0 +1,12 @@
+/*
+
+Since the code given by Windesheim seems to imply that all css files should
+be exported separately, and then bundled, I made this file to easily use
+variables and mixins.
+
+Just put the following at the top of your file:
+@import "base";
+
+*/
+@import "variables";
+@import "mixins";

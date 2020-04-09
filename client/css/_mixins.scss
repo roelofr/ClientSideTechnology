@@ -1,0 +1,5 @@
+@mixin desktop($min-width: $desktop-width) {
+  @media (min-width: $min-width) {
+    @content;
+  }
+}

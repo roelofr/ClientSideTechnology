@@ -6,7 +6,7 @@
   <title>Javascript getting started</title>
 
   <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
@@ -50,9 +50,9 @@
 
           <!-- Actions -->
           <div class="feedback-dialog__footer">
-            <button class="feedback-dialog__button feedback-dialog__button--secondary" data-action="result"
+            <button class="feedback-dialog__button btn" data-action="result"
               data-result="cancel">Weigeren</button>
-            <button class="feedback-dialog__button feedback-dialog__button--primary" data-action="result"
+            <button class="feedback-dialog__button btn btn--primary" data-action="result"
               data-result="continue">Accepteren</button>
           </div>
         </div>
@@ -75,7 +75,7 @@
 
       <!-- footer, containing stats -->
       <footer class="game__footer">
-        <button class="btn btn-secondary" data-action="show-stats">Toon statistieken</button>
+        <button class="btn btn-secondary" data-target="chart">Toon statistieken</button>
         <div data-content="game-stats"></div>
       </footer>
 

@@ -4,6 +4,7 @@ Game.Reversi = (function () {
   // unused
   const configMap = {}
   const gridElements = new Map()
+  let chartTimeout = null
 
   const buildIndex = (x, y) => `${x},${y}`
 
@@ -38,16 +39,47 @@ Game.Reversi = (function () {
     // Remove contents
     elem.children().remove()
 
-    // Color = null ==> remove
-    if (color === null) {
-      console.log('Not adding at (%o, %o)', x, y)
-      return
+    // Add chip, if color ≠ null
+    if (color !== null) {
+      elem.append(
+        $('<div class="board__chip" />').addClass(`board__chip--${color}`)
+      )
     }
 
-    // Add chip
-    elem.append(
-      $('<div class="board__chip" />').addClass(`board__chip--${color}`)
-    )
+    // Send measurement after a short debounce-delay
+    if (chartTimeout) {
+      clearTimeout(chartTimeout)
+    }
+    chartTimeout = setTimeout(countStats, 400)
+  }
+
+  const countStats = function () {
+    let light = 0
+    let dark = 0
+
+    gridElements.forEach((node) => {
+      const kids = node.children().eq(0)
+
+      // Empty case
+      if (!kids.length) {
+        return
+      }
+
+      // Light chip
+      if (kids.hasClass('board__chip--light')) {
+        light++
+        return
+      }
+
+      // Dark chip
+      dark++
+    })
+
+    // Log
+    console.log('Counted actions, got %d light, %d dark', light, dark);
+
+    // Send stats
+    Game.Stats.addMeasure(light, dark)
   }
 
   // Private function init
@@ -82,6 +114,9 @@ Game.Reversi = (function () {
       // Increment row counter
       currentRow++
     })
+
+    // Send first measure
+    countStats()
   }
 
   // Waarde/object geretourneerd aan de outer scope

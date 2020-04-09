@@ -1,8 +1,9 @@
+@import "base";
+
 .feedback-dialog {
-  background: #f0f0f0;
+  background: $color-gray-100;
   border-radius: 0.5rem;
-  border: 2px solid #EDF2F7;
-  background: #F7FAFC;
+  border: 2px solid $color-gray-200;
   padding: 1rem;
   font-size: 8px;
 }
@@ -44,41 +45,12 @@
 }
 
 .feedback-dialog__button {
-  text-transform: uppercase;
-  font-weight: 500;
-  border: none;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
   transition: box-shadow 300ms;
-  background: #CBD5E0;
-  color: #1A202C;
   margin-bottom: 1rem;
 }
 
 .feedback-dialog__button:hover, .feedback-dialog__button:active {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
-  background: #A0AEC0;
-  color: #1A202C;
-}
-
-.feedback-dialog__button--primary {
-  background: #3182CE;
-  color: #EBF8FF;
-}
-
-.feedback-dialog__button--primary:hover, .feedback-dialog__button--primary:focus {
-  background: #2B6CB0;
-  color: #EBF8FF;
-}
-
-.feedback-dialog__button--secondary {
-  background: #A0AEC0;
-  color: #F7FAFC;
-}
-
-.feedback-dialog__button--secondary:hover, .feedback-dialog__button--secondary:focus {
-  background: #718096;
-  color: #F7FAFC;
 }
 
 .feedback-dialog__button--shake {
@@ -100,7 +72,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@include desktop {
   .feedback-dialog {
     font-size: 1rem;
   }

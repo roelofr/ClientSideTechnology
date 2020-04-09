@@ -1,3 +1,5 @@
+@import "base";
+
 .board {
   margin: 0 auto;
   display: inline-flex;
@@ -5,11 +7,11 @@
 
   // Background
   background:
-    radial-gradient(circle, transparent 20%, #FBD38D 20%, #FBD38D 80%, transparent 80%, transparent),
-    radial-gradient(circle, transparent 20%, #FBD38D 20%, #FBD38D 80%, transparent 80%, transparent) 50px 50px,
+    radial-gradient(circle, transparent 20%, $color-blue-300 20%, $color-blue-300 80%, transparent 80%, transparent),
+    radial-gradient(circle, transparent 20%, $color-blue-300 20%, $color-blue-300 80%, transparent 80%, transparent) 50px 50px,
     linear-gradient(F6AD55 8px, transparent 8px) 0 -4px,
     linear-gradient(90deg, F6AD55 8px, transparent 8px) -4px 0;
-  background-color: #FBD38D;
+  background-color: $color-blue-300;
   background-size:100px 100px, 100px 100px, 50px 50px, 50px 50px;
   padding: 0.25rem;
 }
@@ -32,7 +34,7 @@
   margin-right: 0.125rem;
 
   // Fill tile
-  background: #f0f0f0;
+  background: $color-gray-100;
 }
 
 .board__cell:last-child {
@@ -44,22 +46,22 @@
   height: 3rem;
   margin: 0.5rem;
   border-radius: 1.5rem;
-  background-color: rebeccapurple;
+  background-color: rebeccapurple; // debug color 💜
   animation: fiche-appear 800ms ease-out;
-}
 
-.board__chip--light {
-  background-color: #E2E8F0;
-  box-shadow:
-    0 -2px 0 3px #CBD5E0 inset,
-    0 15px rgba(#fff, 0.25) inset
-}
+  &--light {
+    background-color: $color-gray-300;
+    box-shadow:
+      0 -2px 0 3px $color-gray-400 inset,
+      0 15px rgba($color-white, 0.25) inset
+  }
 
-.board__chip--dark {
-  background-color: #2D3748;
-  box-shadow:
-    0 -2px 0 3px #4A5568 inset,
-    0 15px rgba(#fff, 0.25) inset
+  &--dark {
+    background-color: #2D3748;
+    box-shadow:
+      0 -2px 0 3px #4A5568 inset,
+      0 15px rgba(#fff, 0.25) inset
+  }
 }
 
 @keyframes fiche-appear {
