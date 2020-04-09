@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  publicDir: path.resolve(__dirname, '..', 'public'),
+  publicDir: path.resolve(__dirname, '..', '..', 'server/wwwroot'),
   files: {
     js: [
       'js/**/*.js',
