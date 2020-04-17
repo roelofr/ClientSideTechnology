@@ -259,19 +259,30 @@ describe('Test Game\'s comedy engine', function () {
   it('has a `Game.API` with proper methods', function () {
     expect(Game.API).toBeDefined()
     expect(Game.API.init).toBeDefined()
-    expect(Game.API.getJoke).toBeDefined()
+    expect(Game.API.getJokes).toBeDefined()
   })
 
-  it('can return a joke via `getJoke`', function () {
+  it('can return a list of jokes via `getJokes`', function () {
     expect(Game.API).toBeDefined()
-    expect(Game.API.getJoke).toBeDefined()
+    expect(Game.API.getJokes).toBeDefined()
 
-    const joke = Game.API.getJoke()
-    expect(joke).toBeTruthy()
-    expect(joke.setup).toBeDefined()
-    expect(joke.punchline).toBeDefined()
+    const joke = Game.API.getJokes()
+    console.log('Joke is %o', joke);
 
-    expect(joke.setup).toBeTruthy()
-    expect(joke.punchline).toBeTruthy()
+    expect(joke.then).toBeDefined()
+
+    return joke.then(jokes => {
+      // Check object
+      expect(typeof jokes).toBe('object')
+      expect(jokes.length).toBeDefined()
+      expect(jokes[0]).toBeDefined()
+
+      // Get first
+      const firstJoke = jokes[0]
+      expect(typeof firstJoke).toBe('object')
+      expect(firstJoke).toBeTruthy('object')
+      expect(firstJoke.setup).toBeTruthy()
+      expect(firstJoke.punchline).toBeTruthy()
+    })
   })
 })
