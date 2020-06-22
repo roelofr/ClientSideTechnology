@@ -1,0 +1,62 @@
+@startuml "Class diagram"
+
+class User {
+    ' Represents the user.
+    +id: int
+    +ConcurrencyStamp: string
+
+    +UserName: string
+    +NormalizedUserName: string
+    +Email: string
+    +NormalizedEmail: string
+}
+class Role {
+    ' Represents a role.
+
+}
+class UserClaim {
+    ' Represents a claim that a user possesses.
+
+}
+class UserToken {
+    ' Represents an authentication token for a user.
+
+}
+class UserLogin {
+    ' Associates a user with a login.
+
+}
+class RoleClaim {
+    ' Represents a claim that's granted to all users within a role.
+
+}
+class UserRole {
+    ' A join entity that associates users and roles.
+    UserId: int
+    RoleId: int
+}
+
+class User {
+    id: int
+    email: string
+    password: string
+}
+
+class TwoFactor {
+    id: int
+    user_id: int
+    hash: string
+}
+
+class Game {
+    id: int
+    name: string
+    host: int
+    player: int
+}
+note right: Not actually implemented
+
+User <-up- TwoFactor
+User <-left- Game
+
+@enduml

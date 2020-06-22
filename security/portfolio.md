@@ -99,8 +99,10 @@ Sources:
 
 ## Testing environment
 
-For the testing environment we needed a locally hosted MSSQL server. To save on installing extra
-software (since we already have Docker) and to ease configuration, I wrote the script below:
+### Getting a database
+
+For the testing environment I needed a locally hosted MSSQL server. To save on installing extra
+software (since Docker is installed anyway) and to ease configuration, I wrote the script below:
 
 ```bash
 #!/usr/bin/env bash
@@ -123,22 +125,227 @@ docker run \
 	mcr.microsoft.com/mssql/server:2019-latest
 ```
 
-Writing this to `start-mssql` and chmodding it with `chmod ug+x start-mssql` we can
-allow our user to run it on demand, or just queue it on boot using `@reboot $HOME/bin/start-mssql` in crontab.
+Writing this to `start-mssql` and chmodding it with `chmod ug+x start-mssql` I can
+allow our user to run it on demand, or just queue it on boot using a `@reboot $HOME/bin/start-mssql` line in the user's cron (`crontab -e`).
 
-After doing this, we downloaded the Smoketest and I made the following script to ensure the URLs are consistent (a problem I ran in
-on my acceptance server, but not on testing, but since they should be similar, this'll do).
+### Installing and starting the smoketest
+
+After doing this, I downloaded the Smoketest via Git using `git clone <url> ~/apps/smoketest`.
+Afterwards I updated `SmokeTest/appsettings.json` to match the password set in the `<password>` line above and I made the following script to ensure the URLs are consistent (a problem I ran in on my acceptance server, but not on testing but since they should be similar, this'll do).
 
 ```bash
+#!/usr/bin/env bash
+set -e
 
+cd $HOME/apps/smoketest
+
+dotnet run --project SmokeTest --urls=http://localhost:5000
 ```
 
-Lastly we configured Apache with the following records
+Simply store it as `$HOME/bin/start-smoketest`,  `chmod +x` it to make it executable and then run `~/bin/start-smoketest` starts the smoketest.
+
+### Getting Apache2 to show the smoketest
+
+Now to confgure Apache2 to work. We need to show our application on our test server, which is available at `192.168.56.201`. The easiest
+way to do this, is to add `192.168.56.201 debian.local` to our `/etc/hosts` file, and then use `debian.local` as hostname.
+
+Now, to configure Apache to work on that domain. I created a new `security.conf` file in `/etc/apache2/sites-available`, and added the following contents:
 
 ```apache2
-ProxyPass / http://localhost:5000/
-ProxyPassReverse / http://localhost:5000/
-ProxyPreserveHost on
+<VirtualHost *:80>
+   ServerName debian.local
+
+   # Log
+   ErrorLog ${APACHE_LOG_DIR}/error.log
+   CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+   # Proxy
+   ProxyPass / http://localhost:5000/
+   ProxyPassReverse / http://localhost:5000/
+   ProxyPreserveHost on
+</VirtualHost>
 ```
 
-For our HTTPS-connection on the server
+Now activate it:
+
+```
+sudo a2enmod proxy_http
+sudo a2ensite security
+sudo systemctl restart apache2
+```
+
+The result? A working smoketest on testing!
+
+![Smoketest on Kali](images/web-web-kali-smoketest-http.png)
+
+### Securing the connection
+
+For our HTTPS-connection on the server, I created a self-signed certificate and copied it to `/etc/apache2/ssl`
+
+```bash
+# Make key in local home dir
+mkdir ~/ssl
+cd ~/ssl
+
+# Create self-signed key
+openssl req -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 365
+
+# Create dir in Apache2
+sudo mkdir /etc/apache2/ssl
+
+# Copy key
+sudo cp key.pem cert.pem /etc/apache2/ssl
+
+# Ensure it's only readable by root
+chown root:root /etc/apache2/ssl
+chmod 0600 /etc/apache2/ssl/*.pem
+chmod 0700 /etc/apache2/ssl
+```
+
+Finally, I changed the `security.conf` to listen on port `443` and to redirect traffic on port `80`.
+
+```apache2
+<VirtualHost *:443>
+   ServerName debian.local
+
+   # Enable SSL
+   SSLEngine on
+   SSLCertificateFile /etc/apache2/ssl/cert.pem
+   SSLCertificateKeyFile /etc/apache2/ssl/key.pem
+
+   # Proxy
+   ProxyPass / http://localhost:5000/
+   ProxyPassReverse / http://localhost:5000/
+   ProxyPreserveHost on
+</VirtualHost>
+
+# Redirect to HTTPS
+<VirtualHost *:80>
+   ServerName debian.local
+   RedirectPermanent / https://debian.local/
+</VirtualHost>
+```
+
+Then, just restart apache after enabling ssl:
+
+```bash
+sudo a2enmod ssl
+sudo systemctl restart apache2
+```
+
+And as a final check, let's make sure Apache is actually listening on port 80 and 443.
+
+![A TCP listener on port 80 and 443, all lights green](images/kali-listen.png)
+
+So, having checked that, time to connect:
+
+![A working self-signed secure connection](./images/web-kali-smoketest-https.png)
+
+### Monioring the handshakes
+
+I've also used wireshark to monitor the TLS handshake, both the client and server conversations are shown:
+
+![Client hello](images/web-kali-client-hello.png)
+![Server hello](images/web-kali-server-hello.png)
+
+We can see that the certificate is self-signed (and it's initially rejected by Firefox), so might as well look into
+the connection using Wireshark. THe handshake below indicates a properly modern AES 256 encryption with a SHA384 hash.
+According to Mozilla that's proper modern standards, so we can safely assume our user's data is protected, although
+the browser does warn about an unknown certificate (luckily, Let's Encrypt is a thing, so that's just a few clicks away).
+
+Too bad that the server doesn't seem to support TLS 1.3, since it's actively downgrading to TLS 1.2, even though cURL asks for
+the newer version.
+
+### Promoting to acceptance
+
+Using `dotnet publish` we can create a publishable, single-file executable of our app. This allows us to transfer the already-built app from our
+testing environment to our acceptance env.
+
+The requirement is to be framework-dependent, so we can simply create a single-file executable which isn't self-contained to
+ensure the user has the Dotnet Core runtime installed.
+
+The command used are `dotnet publish` and `scp` to transfer the file from the Testing to the Acceptance env. I pre-configured my SSH
+connection using `~/.ssh/config` to allow me to simply use `acceptance` as hostname.
+
+```bash
+dotnet publish \
+    --runtime linux-x64 \
+    --output $HOME/apps/smoktest/publish \
+    --self-contained false \
+    -p:PublishSingleFile=true \
+    $HOME/apps/smoketest/SmokeTest
+
+scp -rp $HOME/apps/smoktest/publish/* acceptance:apps/smoketest
+```
+
+Now, on the acceptance, we can run `~/apps/smoketest/SmokeTest`, and it'll launch the app.
+
+## Testing HTTP and HTTPS
+
+Since HTTP is a simple ascii-based protocol, just like `telnet`, it's easy to write an HTTP request yourself.
+
+For example, when checking what the local testing server uses, we can connect using our `debian.local` alias and send a simple request
+
+```
+telnet debian.local
+> GET / HTTP/1.0
+> Host: debian.local
+```
+
+We need to specify the host, as otherwise the default Apache page will be shown (as we've only bound to our
+`debian.local` hostname).
+
+![Result of a Telnet call to debian.local](images/kali-raw-http.png)
+
+We can do the same when connecting to HTTPS, but since encryption is NOT ascii (and rather hard to do by hand in the alloted time), we can use the `openssl` `s_client` to connect over TLS, and then write our request.
+
+The request body remains the same.
+
+![Result of an HTTP request via TLS](images/kali-raw-https.png)
+
+#### Inspecting the packages
+
+But running HTTP over telnet is all fun and games, but Telnet takes out the majority of the work, especially concering the packages.
+
+We can use wireshark to inspect the contents of these connections, where we can see that our HTTP request easily fits in one frame.
+
+![Our HTTP request, which nicely fits in one frame](images/raw-http-package-sent.png)
+
+The response though, being bigger, won't fit in one frame and Wireshark nicely tells us which frames contain the rest of the data (the screenshot below
+only shows the headers).
+
+![An HTTP response (the headers) and the indicators that the rest of the data was received later](images/raw-http-package-received.png)
+
+With HTTPS, however, we cannot see the content of the packages (which is good, otherwise the security of HTTPS isn't actually secure). Instead, we can see some "Client Hello" and "Server Hello" messages, where the protocols and keys are negotiated (to eventually end up on ECDSA using AES 128 bits encryption and a SHA256 hash). After this negotiation we start seeing packages with "Application data", which is the encrypted payload of the HTTP request and response.
+
+![The "Server Hello", telling us what Cipher suite to use](images/raw-https-scheme.png)
+
+## Scanning our web app using the Zed Attack Proxy
+
+TODO
+
+## 4A: Architecture
+
+For Reversi the assignment is to create a fully working application, but as I already completed my Server class, I did not do this.
+However, for this application we still need a basic AAAA system, so I made that instead.
+
+### Use cases
+
+- A guest should be able to login
+  - Evil: Attacker may try to brute-force accounts
+  - Evil: Attacker may try to bypass login
+- A guest should be able to reset it's password
+  - Evil: An attacker may test if accounts exist by probing e-mails
+- A guest should be able to register for a new account
+  - Evil: An attacker may spam accounts
+  - Evil: An attacker may try to use company e-mails to automatically obtain priviliges
+- A guest should be able to prove it's identity after login using a 2nd factor
+  - Evil: An attacker may try to bypass the 2nd factor
+  - Evil: An attacker may try to brute-force 6-digit tokens
+- A user should be able to alter it's password
+  - Evil: An attacker may attempt to reset a user's password from a different site
+- A user should be able to logout
+  - Evil: An attacker may try to log out users
+- A user should be able to go to an 'admin' screen
+
+### Class diagram
