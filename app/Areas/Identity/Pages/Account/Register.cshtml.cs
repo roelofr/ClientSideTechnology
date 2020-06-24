@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using app.Services;
 
 namespace app.Areas.Identity.Pages.Account
 {
@@ -23,18 +24,21 @@ namespace app.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private ICaptchaService _captchaService;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender
+            IEmailSender emailSender,
+            ICaptchaService captchaService
         )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _captchaService = captchaService;
         }
 
         [BindProperty]
@@ -68,6 +72,14 @@ namespace app.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            // Validate captcha
+            var token = Request.Form["g-recaptcha-response"];
+            if (!await _captchaService.ValidateTokenAsync(token, HttpContext.Connection.RemoteIpAddress.ToString()))
+            {
+                ModelState.AddModelError(string.Empty, "Please re-confirm you're not a robot.");
+                return Page();
+            }
+
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {

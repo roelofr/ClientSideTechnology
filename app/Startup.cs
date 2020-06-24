@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using app.Data;
 using app.Models;
+using app.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,6 +32,12 @@ namespace app
             })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<LoginDbContext>();
+
+            // Add HTTP client
+            services.AddHttpClient();
+
+            // Add Captcha
+            services.AddTransient(typeof(ICaptchaService), typeof(GoogleCaptchaService));
 
             // Add MVC
             services.AddControllersWithViews();

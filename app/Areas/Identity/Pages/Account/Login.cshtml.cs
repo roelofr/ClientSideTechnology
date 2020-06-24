@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using app.Services;
 
 namespace app.Areas.Identity.Pages.Account
 {
@@ -20,15 +21,18 @@ namespace app.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private ICaptchaService _captchaService;
 
         public LoginModel(
             SignInManager<IdentityUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager
+            UserManager<IdentityUser> userManager,
+            ICaptchaService captchaService
         ) {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _captchaService = captchaService;
         }
 
         [BindProperty]
@@ -71,6 +75,14 @@ namespace app.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            // Validate captcha
+            var token = Request.Form["g-recaptcha-response"];
+            if (!await _captchaService.ValidateTokenAsync(token, HttpContext.Connection.RemoteIpAddress.ToString()))
+            {
+                ModelState.AddModelError(string.Empty, "Please re-confirm you're not a robot.");
+                return Page();
+            }
+
             returnUrl = returnUrl ?? Url.Content("~/");
 
             if (ModelState.IsValid)
