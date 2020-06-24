@@ -34,19 +34,19 @@ namespace app.Data
             new SeedUser() {
                 UserName = "Admin",
                 Email = "admin@example.com",
-                Password = "Admin@01",
+                Password = "Random-password",
                 Roles = new string[] {"Administrator", "Moderator", "Normal"}
             },
             new SeedUser() {
                 UserName = "Moderator",
                 Email = "mod@example.com",
-                Password = "Moderator@01",
+                Password = "Random-password",
                 Roles = new string[] {"Moderator", "Normal"}
             },
             new SeedUser() {
                 UserName = "Normal",
                 Email = "user@example.com",
-                Password = "Normal@01",
+                Password = "Random-password",
                 Roles = new string[] {"Normal"}
             },
         };
@@ -115,6 +115,7 @@ namespace app.Data
                     {
                         UserName = userData.UserName,
                         Email = userData.Email,
+                        EmailConfirmed = true,
                     };
 
                     logger.LogDebug("Adding new user {User}", new { User = userModel });

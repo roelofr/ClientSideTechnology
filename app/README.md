@@ -2,9 +2,9 @@
 
 Shows login with three roles:
 
-1) Administrator: `admin@example.com` and `admin-password01`
-1) Moderator: `moderator@example.com` and `moderator-password01`
-1) User: `user@example.com` and `user-password01`
+1) Administrator: `admin@example.com` and `Random-pasword`
+1) Moderator: `moderator@example.com` and `Random-pasword`
+1) User: `user@example.com` and `Random-pasword`
 
 These users are not created when running in production.
 

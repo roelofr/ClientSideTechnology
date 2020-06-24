@@ -1,0 +1,12 @@
+{
+  "mssql.connections": [
+    {
+      "database": "LoginContext",
+      "user": "sa",
+      "server": "127.0.0.1",
+      "authenticationType": "SqlLogin",
+      "savePassword": true,
+      "password": "Docker2020"
+    }
+  ]
+}

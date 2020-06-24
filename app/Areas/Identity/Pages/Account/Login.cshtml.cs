@@ -89,10 +89,20 @@ namespace app.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    // Get user
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    _logger.LogInformation("User {User} logged in.", new { User = user });
+
+                    // Validate user
+                    var roles = await _userManager.GetRolesAsync(user);
+                    if (!roles.Contains("Normal")) {
+                        await _userManager.AddToRoleAsync(user, "Normal");
+                        _logger.LogInformation("User {User} added to role Normal", new { User = user });
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
