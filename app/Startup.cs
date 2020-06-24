@@ -33,6 +33,35 @@ namespace app
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<LoginDbContext>();
 
+            // Add identity options
+            services.Configure<IdentityOptions>(options => {
+                // Password
+                options.Password.RequiredLength = 10;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                // There's no need to force non-alpha and digits if
+                // we have a high default length.
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(1);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+            });
+
+            // Add cookie settings (secure cookies)
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(45);
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
             // Add HTTP client
             services.AddHttpClient();
 
