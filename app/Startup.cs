@@ -63,6 +63,13 @@ namespace app
                 options.SlidingExpiration = true;
             });
 
+            // Add long-term hsts
+            services.AddHsts(options => {
+                options.Preload = false; // not available for subdomains
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
+
             // Add HTTP client
             services.AddHttpClient();
 
