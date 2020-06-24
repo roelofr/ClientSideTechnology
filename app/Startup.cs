@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
@@ -64,6 +65,9 @@ namespace app
 
             // Add HTTP client
             services.AddHttpClient();
+
+            // Add Email client
+            services.AddSingleton(typeof(IEmailSender), typeof(SmtpMailSender));
 
             // Add Captcha
             services.AddTransient(typeof(ICaptchaService), typeof(GoogleCaptchaService));
