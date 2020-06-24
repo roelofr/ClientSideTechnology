@@ -12,12 +12,14 @@ namespace app.Services {
         public static SmtpConfig FromConfiguration(IConfiguration configuration) {
             var section = configuration.GetSection("Smtp");
             var hasAuth = section.GetValue<bool>("HasAuthentication", false);
+            var hasTls = section.GetValue<bool>("HasTLS", true);
             var fromEmail = section.GetValue<string>("From", null);
 
             return new SmtpConfig {
                 Hostname = section.GetValue<string>("Hostname", null),
                 Port = section.GetValue<int>("Port", 587),
                 UseAuthentication = hasAuth,
+                UseTls = hasTls,
                 Username = hasAuth ? section.GetValue<string>("Username", null) : null,
                 Password = hasAuth ? section.GetValue<string>("Password", null) : null,
                 FromName = section.GetValue<string>("FromName", fromEmail),
@@ -27,6 +29,7 @@ namespace app.Services {
         public string Hostname { get; set; }
         public int Port { get; set; }
         public bool UseAuthentication { get; set; }
+        public bool UseTls { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string FromName { get; set; }
@@ -66,7 +69,11 @@ namespace app.Services {
             // Get SMTP client
             using(var client = new SmtpClient()) {
                 // Establish connection
-                await client.ConnectAsync(_configuration.Hostname, _configuration.Port);
+                await client.ConnectAsync(
+                    _configuration.Hostname,
+                    _configuration.Port,
+                    _configuration.UseTls ? SecureSocketOptions.Auto : SecureSocketOptions.None
+                );
 
                 // Login, if possible
                 if (_configuration.UseAuthentication) {
