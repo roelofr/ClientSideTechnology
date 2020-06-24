@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace app.Data
 {
-    public class LoginDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public LoginDbContext(DbContextOptions<LoginDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             // noop
         }

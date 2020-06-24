@@ -32,7 +32,7 @@ namespace app
                 options.User.RequireUniqueEmail = true;
             })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<LoginDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Add identity options
             services.Configure<IdentityOptions>(options => {
@@ -76,8 +76,8 @@ namespace app
             services.AddControllersWithViews();
 
             // Add SQLite DB
-            services.AddDbContext<LoginDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("LoginConnection")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Add Razor (don't know why)
             services.AddRazorPages();

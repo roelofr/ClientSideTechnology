@@ -24,7 +24,7 @@ namespace app.Extensions {
                 var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
 
                 // Get context
-                var dbContext = services.GetRequiredService<LoginDbContext>();
+                var dbContext = services.GetRequiredService<ApplicationDbContext>();
 
                 // Get env
                 var env = services.GetRequiredService<IHostEnvironment>();

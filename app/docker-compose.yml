@@ -6,7 +6,7 @@ services:
         image: mcr.microsoft.com/mssql/server
         environment:
             ACCEPT_EULA: Y
-            SA_PASSWORD: "Docker!234"
+            SA_PASSWORD: Docker2020
         ports:
             - 127.0.0.1:1433:1433
 
