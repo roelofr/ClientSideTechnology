@@ -344,8 +344,24 @@ However, for this application we still need a basic AAAA system, so I made that 
   - Evil: An attacker may try to brute-force 6-digit tokens
 - A user should be able to alter it's password
   - Evil: An attacker may attempt to reset a user's password from a different site
+- A user should be able to create new two-factor tokens
 - A user should be able to logout
   - Evil: An attacker may try to log out users
-- A user should be able to go to an 'admin' screen
+- A moderator should be able to change the password of a user
+  - Weak password
+- A moderator should be able to delete two-factor tokens on an account
+  - Evil: An attacker may use a malicious website to delete account tokens
+- An administrator should be able to view all account information for all users
+  - Evil: A user may try to directly access account data
+  - Evil: An attacker may use a malicious website to retrieve user information
+- An administrator should be able to edit all account information for all users
+  - Evil: An attacker may use a malicious website to update a user
+- An administrator should be able to delete users
+  - Evil: An attacker may use a malicious website to delete a user
+- An administrator should be able to archive users
+  - Evil: An attacker may use a malicious website to archive a user
+- An administrator should be able to create new users
+  - Evil: An attacker may use a malicious website to create a user
+  - Evil: A malicious user may mass-create users
 
 ### Class diagram
