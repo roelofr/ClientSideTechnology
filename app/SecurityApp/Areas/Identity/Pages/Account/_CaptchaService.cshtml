@@ -1,0 +1,6 @@
+@using SecurityApp.Services
+@inject ICaptchaService captchaService
+
+<div class="form-group">
+    <div class="g-recaptcha" data-sitekey="@captchaService.getPublicToken()"></div>
+</div>
